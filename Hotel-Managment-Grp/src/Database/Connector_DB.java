@@ -9,6 +9,6 @@ package Database;
  *
  * @author SHA
  */
-public class Connect_DB {
+public class Connector_DB {
     
 }
