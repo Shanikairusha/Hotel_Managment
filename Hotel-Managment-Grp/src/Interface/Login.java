@@ -32,7 +32,6 @@ public class Login extends javax.swing.JFrame {
      
     public Login() {
         
-        
         initComponents();
     }
 
@@ -58,6 +57,7 @@ public class Login extends javax.swing.JFrame {
         btn_changepass = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
+        jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
 
@@ -65,6 +65,7 @@ public class Login extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel3.setBackground(new java.awt.Color(16, 21, 30));
+        jPanel3.setAutoscrolls(true);
         jPanel3.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 jPanel3MouseDragged(evt);
@@ -100,7 +101,7 @@ public class Login extends javax.swing.JFrame {
         txt_user.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         txt_user.setForeground(new java.awt.Color(255, 255, 255));
         txt_user.setBorder(null);
-        jPanel1.add(txt_user, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 110, 340, -1));
+        jPanel1.add(txt_user, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 110, 300, -1));
 
         jLabel2.setBackground(new java.awt.Color(255, 255, 255));
         jLabel2.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 12)); // NOI18N
@@ -148,6 +149,10 @@ public class Login extends javax.swing.JFrame {
         jPanel1.add(btn_changepass, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 30, -1, -1));
         jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 190, 340, 10));
         jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, 340, 10));
+
+        jLabel3.setForeground(new java.awt.Color(0, 204, 204));
+        jLabel3.setText("USER-");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 110, -1, -1));
 
         jPanel3.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 40, 490, 310));
 
@@ -211,12 +216,12 @@ public class Login extends javax.swing.JFrame {
     public String log(){
         dbConnManager = new DBConnManager();  
         Connection dbConn = null;
-        String result = null;
+        String result; 
         
         try{
             dbConn = dbConnManager.connect();
             Statement stmt = dbConn.createStatement();
-            String query = "SELECT * FROM login WHERE username = '"+txt_user.getText()+"' and password = '"+String.valueOf(txt_pass.getPassword())+"' ";
+            String query = "SELECT * FROM login WHERE username = '" + "USER-" + txt_user.getText() + "' and password = '" + String.valueOf(txt_pass.getPassword())+"' ";
             
             ResultSet rs = stmt.executeQuery(query);
             if(rs.next()){
@@ -229,11 +234,9 @@ public class Login extends javax.swing.JFrame {
         }
         catch(SQLException ex)
         {
-            System.out.println(ex + "-----------The entered student ID cannot be found.");  
+            result = ex + "  The entered student ID cannot be found.";  
             
-        }finally {             
-            dbConnManager.connectionClose(dbConn);         
-        }   
+        }
         
         return result;
     }
@@ -281,6 +284,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JButton btn_login;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
