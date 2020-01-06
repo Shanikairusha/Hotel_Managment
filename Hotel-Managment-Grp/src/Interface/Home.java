@@ -38,12 +38,15 @@ public class Home extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         settingbtn = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
+        settingbtn1 = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
         Banner = new javax.swing.JPanel();
         userrole = new javax.swing.JPanel();
         lbl_user = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         lbl_username = new javax.swing.JLabel();
         jLayeredPane1 = new javax.swing.JLayeredPane();
+        pnlemployee = new javax.swing.JPanel();
         pnlhome = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         pnlbooking = new javax.swing.JPanel();
@@ -143,6 +146,24 @@ public class Home extends javax.swing.JFrame {
         });
         settingbtn.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 230, 60));
 
+        settingbtn1.setBackground(new java.awt.Color(43, 126, 126));
+        settingbtn1.setPreferredSize(new java.awt.Dimension(270, 50));
+        settingbtn1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel10.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/settings-25-48.png"))); // NOI18N
+        jLabel10.setText("     Employee");
+        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel10MouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel10MousePressed(evt);
+            }
+        });
+        settingbtn1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 230, 60));
+
         javax.swing.GroupLayout sidemanubarLayout = new javax.swing.GroupLayout(sidemanubar);
         sidemanubar.setLayout(sidemanubarLayout);
         sidemanubarLayout.setHorizontalGroup(
@@ -151,6 +172,7 @@ public class Home extends javax.swing.JFrame {
             .addComponent(bookingbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(resturentbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(settingbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(settingbtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         sidemanubarLayout.setVerticalGroup(
             sidemanubarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -163,6 +185,8 @@ public class Home extends javax.swing.JFrame {
                 .addComponent(resturentbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(settingbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(settingbtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -226,6 +250,19 @@ public class Home extends javax.swing.JFrame {
                 .addContainerGap(32, Short.MAX_VALUE))
         );
 
+        pnlemployee.setBackground(new java.awt.Color(0, 153, 204));
+
+        javax.swing.GroupLayout pnlemployeeLayout = new javax.swing.GroupLayout(pnlemployee);
+        pnlemployee.setLayout(pnlemployeeLayout);
+        pnlemployeeLayout.setHorizontalGroup(
+            pnlemployeeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1021, Short.MAX_VALUE)
+        );
+        pnlemployeeLayout.setVerticalGroup(
+            pnlemployeeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel7.setText("home");
 
@@ -236,14 +273,14 @@ public class Home extends javax.swing.JFrame {
             .addGroup(pnlhomeLayout.createSequentialGroup()
                 .addGap(309, 309, 309)
                 .addComponent(jLabel7)
-                .addContainerGap(650, Short.MAX_VALUE))
+                .addContainerGap(660, Short.MAX_VALUE))
         );
         pnlhomeLayout.setVerticalGroup(
             pnlhomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlhomeLayout.createSequentialGroup()
-                .addGap(55, 55, 55)
+                .addContainerGap(55, Short.MAX_VALUE)
                 .addComponent(jLabel7)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(368, 368, 368))
         );
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
@@ -308,11 +345,6 @@ public class Home extends javax.swing.JFrame {
                 .addContainerGap(301, Short.MAX_VALUE))
         );
 
-        jLayeredPane1.setLayer(pnlhome, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(pnlbooking, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(pnlresturent, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(pnlsetting, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
         jLayeredPane1Layout.setHorizontalGroup(
@@ -332,6 +364,11 @@ public class Home extends javax.swing.JFrame {
                 .addGroup(jLayeredPane1Layout.createSequentialGroup()
                     .addGap(0, 0, 0)
                     .addComponent(pnlsetting, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addGap(0, 0, 0)
+                    .addComponent(pnlemployee, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         jLayeredPane1Layout.setVerticalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -350,7 +387,17 @@ public class Home extends javax.swing.JFrame {
                 .addGroup(jLayeredPane1Layout.createSequentialGroup()
                     .addGap(0, 0, 0)
                     .addComponent(pnlsetting, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addGap(0, 0, 0)
+                    .addComponent(pnlemployee, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGap(0, 0, 0)))
         );
+        jLayeredPane1.setLayer(pnlemployee, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(pnlhome, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(pnlbooking, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(pnlresturent, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(pnlsetting, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -451,6 +498,14 @@ public class Home extends javax.swing.JFrame {
         pnlsetting.setVisible(true);
     }//GEN-LAST:event_jLabel6MouseClicked
 
+    private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel10MouseClicked
+
+    private void jLabel10MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel10MousePressed
+
     /**
      * @param args the command line arguments
      */
@@ -491,6 +546,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JPanel bookingbtn;
     private javax.swing.JPanel homebtn;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -503,11 +559,13 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_user;
     private javax.swing.JLabel lbl_username;
     private javax.swing.JPanel pnlbooking;
+    private javax.swing.JPanel pnlemployee;
     private javax.swing.JPanel pnlhome;
     private javax.swing.JPanel pnlresturent;
     private javax.swing.JPanel pnlsetting;
     private javax.swing.JPanel resturentbtn;
     private javax.swing.JPanel settingbtn;
+    private javax.swing.JPanel settingbtn1;
     private javax.swing.JPanel sidemanubar;
     private javax.swing.JPanel userrole;
     // End of variables declaration//GEN-END:variables
