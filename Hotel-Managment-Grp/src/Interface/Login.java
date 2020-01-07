@@ -6,7 +6,9 @@
 package Interface;
 
 
-import hotel.managment.DBConnManager;
+import Database.DBConnManager;
+import Database.Query_Login;
+import Person.User;
 import java.awt.Window;
 import java.awt.event.WindowEvent;
 import java.sql.Connection;
@@ -178,7 +180,10 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_loginActionPerformed
-        JOptionPane.showMessageDialog(null,log());
+        
+        User u  = new User(txt_user.getText(),String.valueOf(txt_pass.getPassword()));
+        //u.userlogin();
+        JOptionPane.showMessageDialog(null,u.userlogin());
     }//GEN-LAST:event_btn_loginActionPerformed
 
     private void btn_closeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_closeActionPerformed
@@ -213,33 +218,7 @@ public class Login extends javax.swing.JFrame {
         this.setLocation(x-xx, y-yy);
     }//GEN-LAST:event_jPanel3MouseDragged
 
-    public String log(){
-        dbConnManager = new DBConnManager();  
-        Connection dbConn = null;
-        String result; 
-        
-        try{
-            dbConn = dbConnManager.connect();
-            Statement stmt = dbConn.createStatement();
-            String query = "SELECT * FROM login WHERE username = '" + "USER-" + txt_user.getText() + "' and password = '" + String.valueOf(txt_pass.getPassword())+"' ";
-            
-            ResultSet rs = stmt.executeQuery(query);
-            if(rs.next()){
-                result = "Access Granted !";
-            }
-            else
-            {
-                result = "Access Denied!";
-            }
-        }
-        catch(SQLException ex)
-        {
-            result = ex + "  The entered student ID cannot be found.";  
-            
-        }
-        
-        return result;
-    }
+    
     /**
      * @param args the command line arguments
      */

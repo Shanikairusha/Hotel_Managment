@@ -5,7 +5,8 @@
  */
 package Interface;
 
-import hotel.managment.DBConnManager;
+import Database.DBConnManager;
+import Person.User;
 import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -62,6 +63,7 @@ public class ChangePass extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(16, 21, 30));
+        jPanel1.setAutoscrolls(true);
         jPanel1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 jPanel1MouseDragged(evt);
@@ -197,82 +199,12 @@ public class ChangePass extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
-    private String validation(){
-        String result = null;
-        if(txt_user.getText().equals("") || String.valueOf(txt_pass.getPassword()).equals("") || String.valueOf(txt_newpass.getPassword()).equals("") || String.valueOf(txt_conpass.getPassword()).equals(""))
-        {
-            result = "Empty Value!";  
-        }
-        else
-        {
-            dbConnManager = new DBConnManager();
-            Connection dbConn = null;
-            
-
-            try{
-                dbConn = dbConnManager.connect();
-                Statement stmt = dbConn.createStatement();
-                String query = "SELECT * FROM login WHERE username = '"+txt_user.getText()+"' and password = '"+String.valueOf(txt_pass.getPassword())+"' ";
-
-                ResultSet rs = stmt.executeQuery(query);
-                if(rs.next()){
-                    if(String.valueOf(txt_newpass.getPassword()).equals(String.valueOf(txt_conpass.getPassword()))){
-                        result = PassChange();
-                    }
-                    else{
-                        result = "Confirm Password not matchs";
-                    }
-                }
-                else
-                {
-                    result = "Access Den00ied!";
-                }
-            }
-            catch(SQLException ex)
-            {
-                result = ex + "-----------The entered Username and Password cannot be found.111";
-                
-            }finally {
-                dbConnManager.connectionClose(dbConn);
-            }
-            
-        }
-        return result;
-    }
     
-    private String PassChange(){
-        
-        String rslt = null;
-        dbConnManager = new DBConnManager();  
-        Connection dbConn = null;
-        
-        try{
-            dbConn = dbConnManager.connect();
-            Statement stmt = dbConn.createStatement();
-            String query = "UPDATE login SET password = '"+String.valueOf(txt_conpass.getPassword())+"'";
-            
-            int rs = stmt.executeUpdate(query);
-           // JOptionPane.showMessageDialog(null,rs);
-            if(rs == 1){
-                rslt = "Password Changed.";
-            }
-            else
-            {
-                rslt = "Password Change Failed! ";
-            }
-        }
-        catch(SQLException ex)
-        {
-            rslt = ex + "-----------The entered Username and Password cannot be found.";  
-            
-        } 
-        
-        return rslt;
-    
-    }
     
     private void btn_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_loginActionPerformed
-        JOptionPane.showMessageDialog(null,validation());
+        
+        User u = new User(txt_user.getText(),String.valueOf(txt_pass.getPassword()),String.valueOf(txt_newpass.getPassword()),String.valueOf(txt_conpass.getPassword())); 
+        JOptionPane.showMessageDialog(null,u.changePass());
     }//GEN-LAST:event_btn_loginActionPerformed
 
     private void btn_closeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_closeActionPerformed
