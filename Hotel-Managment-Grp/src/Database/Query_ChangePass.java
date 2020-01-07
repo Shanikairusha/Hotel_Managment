@@ -45,7 +45,7 @@ public class Query_ChangePass {
             }
             catch(SQLException ex)
             {
-                result = ex + "-----------The entered Username and Password cannot be found.111";
+                result = ex.getMessage() + "-----------The entered Username and Password cannot be found.111";
                 
             }finally {
                 dbConnManager.connectionClose(dbConn);
