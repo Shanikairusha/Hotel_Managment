@@ -5,7 +5,10 @@
  */
 package Interface;
 
+import Receipt.Receipt;
+import Validation.PersonID;
 import java.awt.Color;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -29,6 +32,7 @@ public class Home extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         sidemanubar = new javax.swing.JPanel();
         homebtn = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -53,6 +57,43 @@ public class Home extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         pnlresturent = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        txtPersonID = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        textCustomerID = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        textResID = new javax.swing.JTextField();
+        pnlRoom = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        pnlTable = new javax.swing.JPanel();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        radioRooms = new javax.swing.JRadioButton();
+        radioTable = new javax.swing.JRadioButton();
+        pnlReceiptMain = new javax.swing.JPanel();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
+        jLabel30 = new javax.swing.JLabel();
+        jLabel31 = new javax.swing.JLabel();
+        jLabel32 = new javax.swing.JLabel();
+        jLabel33 = new javax.swing.JLabel();
+        btnGenerate = new javax.swing.JButton();
+        radioMain = new javax.swing.JRadioButton();
         pnlsetting = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
 
@@ -114,7 +155,7 @@ public class Home extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/restrant.png"))); // NOI18N
-        jLabel4.setText("      Resturent");
+        jLabel4.setText("      Receipt");
         jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel4MouseClicked(evt);
@@ -273,12 +314,12 @@ public class Home extends javax.swing.JFrame {
             .addGroup(pnlhomeLayout.createSequentialGroup()
                 .addGap(309, 309, 309)
                 .addComponent(jLabel7)
-                .addContainerGap(660, Short.MAX_VALUE))
+                .addContainerGap(1420, Short.MAX_VALUE))
         );
         pnlhomeLayout.setVerticalGroup(
             pnlhomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlhomeLayout.createSequentialGroup()
-                .addContainerGap(55, Short.MAX_VALUE)
+                .addContainerGap(463, Short.MAX_VALUE)
                 .addComponent(jLabel7)
                 .addGap(368, 368, 368))
         );
@@ -303,25 +344,256 @@ public class Home extends javax.swing.JFrame {
                 .addContainerGap(410, Short.MAX_VALUE))
         );
 
+        pnlresturent.setBackground(new java.awt.Color(0, 102, 102));
+        pnlresturent.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                pnlresturentComponentShown(evt);
+            }
+        });
+        pnlresturent.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel8.setText("      Resturent");
+        pnlresturent.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(313, 24, -1, -1));
 
-        javax.swing.GroupLayout pnlresturentLayout = new javax.swing.GroupLayout(pnlresturent);
-        pnlresturent.setLayout(pnlresturentLayout);
-        pnlresturentLayout.setHorizontalGroup(
-            pnlresturentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlresturentLayout.createSequentialGroup()
-                .addGap(313, 313, 313)
-                .addComponent(jLabel8)
-                .addContainerGap(554, Short.MAX_VALUE))
+        jLabel11.setBackground(new java.awt.Color(255, 255, 204));
+        jLabel11.setText("Customer's  ID No");
+        pnlresturent.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 165, 90, 31));
+        pnlresturent.add(txtPersonID, new org.netbeans.lib.awtextra.AbsoluteConstraints(138, 170, 180, -1));
+
+        jLabel12.setText("Customer ID");
+        pnlresturent.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, 90, 24));
+        pnlresturent.add(textCustomerID, new org.netbeans.lib.awtextra.AbsoluteConstraints(138, 242, 180, -1));
+
+        jLabel13.setText("Reservation ID");
+        pnlresturent.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 315, 90, -1));
+        pnlresturent.add(textResID, new org.netbeans.lib.awtextra.AbsoluteConstraints(138, 312, 180, -1));
+
+        pnlRoom.setBackground(new java.awt.Color(0, 153, 153));
+        pnlRoom.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Room No", "Romm Type", "Standard Rates(per day)"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setHeaderValue("Room No");
+            jTable1.getColumnModel().getColumn(1).setHeaderValue("Romm Type");
+            jTable1.getColumnModel().getColumn(2).setHeaderValue("Standard Rates(per day)");
+        }
+
+        pnlRoom.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, 290, 266));
+
+        jLabel15.setText("Stayed days");
+        pnlRoom.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(367, 189, 99, 32));
+
+        jLabel16.setText("jLabel16");
+        pnlRoom.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(554, 189, 89, 32));
+
+        jLabel17.setText("Final Bill");
+        pnlRoom.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(367, 318, 77, 29));
+
+        jLabel18.setText("jLabel18");
+        pnlRoom.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(441, 353, 214, 97));
+
+        jLabel19.setText("Check In");
+        pnlRoom.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(367, 43, 88, 23));
+
+        jLabel20.setText("jLabel20");
+        pnlRoom.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(473, 43, 152, 23));
+
+        jLabel21.setText("Check Out");
+        pnlRoom.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(367, 118, -1, -1));
+
+        jLabel22.setText("jLabel22");
+        pnlRoom.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(481, 111, 152, 29));
+
+        pnlTable.setBackground(new java.awt.Color(51, 255, 255));
+
+        jLabel23.setText("Standard rate for 1 table reservation");
+
+        jLabel24.setText("jLabel24");
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Table No", "Date"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable2);
+
+        jLabel25.setText("Table Bill");
+
+        jLabel26.setText("jLabel26");
+
+        javax.swing.GroupLayout pnlTableLayout = new javax.swing.GroupLayout(pnlTable);
+        pnlTable.setLayout(pnlTableLayout);
+        pnlTableLayout.setHorizontalGroup(
+            pnlTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlTableLayout.createSequentialGroup()
+                .addGroup(pnlTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlTableLayout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(57, 57, 57)
+                        .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlTableLayout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addGroup(pnlTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(pnlTableLayout.createSequentialGroup()
+                        .addGap(82, 82, 82)
+                        .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(150, Short.MAX_VALUE))
         );
-        pnlresturentLayout.setVerticalGroup(
-            pnlresturentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlresturentLayout.createSequentialGroup()
+        pnlTableLayout.setVerticalGroup(
+            pnlTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlTableLayout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addGroup(pnlTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39)
+                .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(40, Short.MAX_VALUE))
+        );
+
+        pnlRoom.add(pnlTable, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 650, 450));
+
+        pnlresturent.add(pnlRoom, new org.netbeans.lib.awtextra.AbsoluteConstraints(338, 137, -1, -1));
+
+        jLabel14.setText("BILL");
+        pnlresturent.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(694, 39, 136, 36));
+
+        buttonGroup1.add(radioRooms);
+        radioRooms.setText("Rooms");
+        radioRooms.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                radioRoomsStateChanged(evt);
+            }
+        });
+        radioRooms.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioRoomsActionPerformed(evt);
+            }
+        });
+        pnlresturent.add(radioRooms, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 90, 60, -1));
+
+        buttonGroup1.add(radioTable);
+        radioTable.setText("Table");
+        radioTable.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                radioTableStateChanged(evt);
+            }
+        });
+        radioTable.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioTableActionPerformed(evt);
+            }
+        });
+        pnlresturent.add(radioTable, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 90, 60, -1));
+
+        pnlReceiptMain.setBackground(new java.awt.Color(0, 204, 204));
+
+        jLabel27.setText("                                             Thank You!");
+
+        jLabel28.setText("Room Total");
+
+        jLabel29.setText("jLabel29");
+
+        jLabel30.setText("Table Total");
+
+        jLabel31.setText("jLabel31");
+
+        jLabel32.setText("Final Bill");
+
+        jLabel33.setText("jLabel33");
+
+        javax.swing.GroupLayout pnlReceiptMainLayout = new javax.swing.GroupLayout(pnlReceiptMain);
+        pnlReceiptMain.setLayout(pnlReceiptMainLayout);
+        pnlReceiptMainLayout.setHorizontalGroup(
+            pnlReceiptMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlReceiptMainLayout.createSequentialGroup()
+                .addGroup(pnlReceiptMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlReceiptMainLayout.createSequentialGroup()
+                        .addGap(169, 169, 169)
+                        .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlReceiptMainLayout.createSequentialGroup()
+                        .addGap(78, 78, 78)
+                        .addGroup(pnlReceiptMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(pnlReceiptMainLayout.createSequentialGroup()
+                                .addGroup(pnlReceiptMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(83, 83, 83)
+                                .addGroup(pnlReceiptMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(162, Short.MAX_VALUE))
+        );
+        pnlReceiptMainLayout.setVerticalGroup(
+            pnlReceiptMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlReceiptMainLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addComponent(jLabel8)
-                .addContainerGap(399, Short.MAX_VALUE))
+                .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(pnlReceiptMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel28, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)
+                    .addComponent(jLabel29, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(43, 43, 43)
+                .addGroup(pnlReceiptMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(26, 26, 26)
+                .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        pnlresturent.add(pnlReceiptMain, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 120, 680, 480));
+
+        btnGenerate.setText("Generate");
+        btnGenerate.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnGenerateMouseClicked(evt);
+            }
+        });
+        btnGenerate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGenerateActionPerformed(evt);
+            }
+        });
+        pnlresturent.add(btnGenerate, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 110, -1));
+
+        buttonGroup1.add(radioMain);
+        radioMain.setText("Main");
+        radioMain.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                radioMainStateChanged(evt);
+            }
+        });
+        pnlresturent.add(radioMain, new org.netbeans.lib.awtextra.AbsoluteConstraints(597, 90, 60, -1));
 
         pnlsetting.setBackground(new java.awt.Color(0, 102, 102));
 
@@ -344,6 +616,12 @@ public class Home extends javax.swing.JFrame {
                 .addComponent(jLabel9)
                 .addContainerGap(301, Short.MAX_VALUE))
         );
+
+        jLayeredPane1.setLayer(pnlemployee, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(pnlhome, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(pnlbooking, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(pnlresturent, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(pnlsetting, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
@@ -393,11 +671,6 @@ public class Home extends javax.swing.JFrame {
                     .addComponent(pnlemployee, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGap(0, 0, 0)))
         );
-        jLayeredPane1.setLayer(pnlemployee, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(pnlhome, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(pnlbooking, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(pnlresturent, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(pnlsetting, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -489,10 +762,13 @@ public class Home extends javax.swing.JFrame {
         pnlbooking.setVisible(false);
         pnlresturent.setVisible(true);
         pnlsetting.setVisible(false);
+        pnlReceiptMain.setVisible(true);
+        pnlRoom.setVisible(false);
+        pnlTable.setVisible(false);
     }//GEN-LAST:event_jLabel4MouseClicked
 
     private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
-          pnlhome.setVisible(false);
+         pnlhome.setVisible(false);
         pnlbooking.setVisible(false);
         pnlresturent.setVisible(false);
         pnlsetting.setVisible(true);
@@ -505,6 +781,76 @@ public class Home extends javax.swing.JFrame {
     private void jLabel10MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MousePressed
         // TODO add your handling code here:
     }//GEN-LAST:event_jLabel10MousePressed
+
+    private void radioRoomsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioRoomsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_radioRoomsActionPerformed
+
+    private void radioTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioTableActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_radioTableActionPerformed
+
+    private void radioRoomsStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_radioRoomsStateChanged
+        if(radioRooms.isSelected())
+        {
+            pnlReceiptMain.setVisible(false);
+            pnlRoom.setVisible(true);
+            pnlTable.setVisible(false);
+        }
+        else
+        {
+            pnlReceiptMain.setVisible(true);
+            pnlRoom.setVisible(false);
+            pnlTable.setVisible(true);
+        }
+    }//GEN-LAST:event_radioRoomsStateChanged
+
+    private void radioTableStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_radioTableStateChanged
+         if(radioRooms.isSelected())
+        {
+            pnlTable.setVisible(true);
+            pnlReceiptMain.setVisible(false);
+            pnlRoom.setVisible(false);
+           
+        }
+        else
+        {
+            pnlReceiptMain.setVisible(true);
+            pnlRoom.setVisible(true);
+            pnlTable.setVisible(false);
+        }
+    }//GEN-LAST:event_radioTableStateChanged
+
+    private void pnlresturentComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_pnlresturentComponentShown
+        
+    }//GEN-LAST:event_pnlresturentComponentShown
+
+    private void btnGenerateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnGenerateActionPerformed
+
+    private void btnGenerateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGenerateMouseClicked
+        String s=txtPersonID.getText();
+        //validating the ID number methods are in the Validation package
+        PersonID valID = new PersonID();
+        
+        valID.validate(s);
+    }//GEN-LAST:event_btnGenerateMouseClicked
+
+    private void radioMainStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_radioMainStateChanged
+        if(radioMain.isSelected())
+        {
+            pnlReceiptMain.setVisible(true);
+            pnlRoom.setVisible(false);
+            pnlTable.setVisible(false);
+        }
+        else
+        {
+            pnlReceiptMain.setVisible(false);
+            pnlRoom.setVisible(true);
+            pnlTable.setVisible(true);
+        }
+    }//GEN-LAST:event_radioMainStateChanged
 
     /**
      * @param args the command line arguments
@@ -544,11 +890,36 @@ public class Home extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Banner;
     private javax.swing.JPanel bookingbtn;
+    private javax.swing.JButton btnGenerate;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JPanel homebtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -556,17 +927,30 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLayeredPane jLayeredPane1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
     private javax.swing.JLabel lbl_user;
     private javax.swing.JLabel lbl_username;
+    private javax.swing.JPanel pnlReceiptMain;
+    private javax.swing.JPanel pnlRoom;
+    private javax.swing.JPanel pnlTable;
     private javax.swing.JPanel pnlbooking;
     private javax.swing.JPanel pnlemployee;
     private javax.swing.JPanel pnlhome;
     private javax.swing.JPanel pnlresturent;
     private javax.swing.JPanel pnlsetting;
+    private javax.swing.JRadioButton radioMain;
+    private javax.swing.JRadioButton radioRooms;
+    private javax.swing.JRadioButton radioTable;
     private javax.swing.JPanel resturentbtn;
     private javax.swing.JPanel settingbtn;
     private javax.swing.JPanel settingbtn1;
     private javax.swing.JPanel sidemanubar;
+    private javax.swing.JTextField textCustomerID;
+    private javax.swing.JTextField textResID;
+    private javax.swing.JTextField txtPersonID;
     private javax.swing.JPanel userrole;
     // End of variables declaration//GEN-END:variables
 }
