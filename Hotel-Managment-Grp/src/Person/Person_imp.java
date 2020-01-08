@@ -5,7 +5,7 @@
  */
 package Person;
 
-import Database.DBConnManager;
+import Database.Connect_DB;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;

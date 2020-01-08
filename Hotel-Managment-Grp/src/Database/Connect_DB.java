@@ -7,6 +7,7 @@ package Database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.Statement;
 
 
@@ -20,13 +21,14 @@ public class Connect_DB {
     
     
     static Connection conn = null;
+    //static ResultSet rs = null;
     public static Connection getConnection()
     {
         if(conn!=null) return conn;
         
         try{
             Class.forName("com.mysql.jdbc.Driver");
-            conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/hotelmanagment","root","");
+            conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/hotel managment","root","");
             
         }
         catch(Exception e)
@@ -34,7 +36,7 @@ public class Connect_DB {
             System.out.println(e);
             
         }
-        System.out.println("Hai");
+        //System.out.println("Hai");
             return conn;
     }
     public static void conn_close(Connection conn)

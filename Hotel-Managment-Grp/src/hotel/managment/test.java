@@ -8,6 +8,7 @@ package hotel.managment;
 import Database.Connect_DB;
 import java.sql.Connection;
 import javax.xml.stream.events.Comment;
+import java.sql.*;
 
 /**
  *
@@ -18,6 +19,21 @@ public class test {
          
      Connection conn=Connect_DB.getConnection();
     
+    try{
+        String s ="Select CustomerID from Customer where IDno='971000848v'";
+       Statement st=conn.createStatement();
+       ResultSet rs= st.executeQuery(s);
+       
+       while(rs.next())
+       {
+           System.out.println(rs.getString(1));
+       }
+       
+    }
+    catch(Exception e){
+        
+    }
+        
                  
          
    
