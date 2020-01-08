@@ -1,6 +1,8 @@
 package Person;
 
+import Database.Query_Person;
 import Interface.Login;
+import javax.swing.JOptionPane;
 
 public class Person implements Person_imp{
 
@@ -16,10 +18,31 @@ public class Person implements Person_imp{
         this.Address = Address;
         this.PhnNm = PhnNm;
         this.Email = Email;
+        
     }
 
     public Person() {
         
+    }
+
+    public void setIdNo(String IdNo) {
+        this.IdNo = IdNo;
+    }
+
+    public void setName(String Name) {
+        this.Name = Name;
+    }
+
+    public void setAddress(String Address) {
+        this.Address = Address;
+    }
+
+    public void setPhnNm(int PhnNm) {
+        this.PhnNm = PhnNm;
+    }
+
+    public void setEmail(String Email) {
+        this.Email = Email;
     }
 
     public String getIdNo() {
@@ -43,9 +66,10 @@ public class Person implements Person_imp{
     }
 
     @Override
-    public void setDetails() {
-        Login log = new Login();
-        
+    public void setPDetails() {
+        JOptionPane.showMessageDialog(null,this.IdNo);
+        Query_Person q = new Query_Person();
+        q.SetPerson(getIdNo(), getName(), getAddress(), getPhnNm(), getEmail());
     }
 
     @Override

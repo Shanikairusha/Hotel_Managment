@@ -7,6 +7,7 @@ package Interface;
 
 import Person.Person;
 import java.awt.Color;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -704,7 +705,9 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_closeActionPerformed
 
     private void btn_close1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_close1ActionPerformed
-       Person p = new Person(txt_euserid.getText(),txt_ename.getText(),txt_eaddress.getText(),Integer.parseInt(txt_ephoneno.getText()),txt_eemail.getText());
+       Person p = new Person(txt_eidno.getText(),txt_ename.getText(),txt_eaddress.getText(),Integer.parseInt(txt_ephoneno.getText()),txt_eemail.getText());
+       //JOptionPane.showMessageDialog(null,txt_eidno.getText());
+       p.setPDetails();
     }//GEN-LAST:event_btn_close1ActionPerformed
 
     /**

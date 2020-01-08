@@ -54,12 +54,14 @@ public class User extends Person{
 
     public User(String userId, String password, String role, String IdNo, String Name, String Address, int PhnNm, String Email) {
         super(IdNo, Name, Address, PhnNm, Email);
-        this.userId = userId;
-        this.password = password;
-        this.role = role;
     }
     
-    public User(String UserId, String Password, String Newpass, String Conpass){
+    public User(String userId, String password, String role){
+        this.userId=userId;
+        
+    }
+    
+    public User (String UserId, String Password, String Newpass, String Conpass){
         this.userId = UserId;
         this.password = Password;
         this.newpass = Newpass;
@@ -71,9 +73,13 @@ public class User extends Person{
         this.password = password;
     }
     
+    public String SetUDetails(){
+        
+        return null;
+    }
+    
     public String userlogin(){
         Query_Login ql = new Query_Login();
-        
         return ql.login(getUserId(),getPassword());
     }
     

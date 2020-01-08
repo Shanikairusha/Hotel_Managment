@@ -35,7 +35,7 @@ public class Query_Login {
         }
         catch(SQLException ex)
         {
-            result = ex + "  The entered student ID cannot be found.";  
+            result = ex.getMessage();  
             
         }
         

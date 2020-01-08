@@ -19,7 +19,7 @@ import java.sql.Statement;
 
 public interface Person_imp {
     
-    public void setDetails();
+    public void setPDetails();
     public void getDetails();
         
 }
