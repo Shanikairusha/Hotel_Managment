@@ -8,6 +8,8 @@ package Control;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 import Interface.Home;
+import Tables.Tables;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -23,6 +25,18 @@ public class Home_Receipt_Control {
     return TimeUnit.DAYS.convert(diffInMillies,TimeUnit.MILLISECONDS);
 }
   
+  public static double roomTotal(int days,double total)
+  {
+      return(days*total);
+  }
+  public static double tableTotal(int count)
+  {
+      double rate = Tables.getRates();
+      double total= rate*count;
+      //JOptionPane.showMessageDialog(null, "table total");
+      return total;
+      
+  }
   
     
 }

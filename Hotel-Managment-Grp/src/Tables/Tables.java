@@ -12,8 +12,12 @@ package Tables;
 public class Tables {
     private String TableID;
     private String ResID;
-    private static int NofSeats;
+    
     private static double Rates;
+
+    public Tables() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
     public String getTableID() {
         return TableID;
@@ -31,13 +35,7 @@ public class Tables {
         this.ResID = ResID;
     }
 
-    public static int getNofSeats() {
-        return NofSeats;
-    }
-
-    public static void setNofSeats(int NofSeats) {
-        Tables.NofSeats = NofSeats;
-    }
+    
 
     public static double getRates() {
         return Rates;

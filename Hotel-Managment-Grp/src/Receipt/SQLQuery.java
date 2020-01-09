@@ -8,6 +8,7 @@ package Receipt;
 import Database.Connect_DB;
 import Reservation.Reservation;
 import Rooms.RoomMap;
+import Tables.Tables;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,7 +37,7 @@ public class SQLQuery {
            ResultSet rs =ps.executeQuery();
            while(rs.next())
            {
-               JOptionPane.showMessageDialog(null, "ok" );
+               
                return(rs.getString(1));
            }
        }
@@ -61,7 +62,7 @@ public class SQLQuery {
            while(rs.next())
            {
                
-               JOptionPane.showMessageDialog(null, "ok" );
+               
                return(rs.getString(1));
            }
        }
@@ -117,7 +118,7 @@ public class SQLQuery {
            JOptionPane.showMessageDialog(null, e );
             return null;
        }
-        System.out.println(recordList.size());
+       // System.out.println(recordList.size());
         return recordList;
     
    }
@@ -145,10 +146,37 @@ public class SQLQuery {
            JOptionPane.showMessageDialog(null, e );
             return null;
        }
-        System.out.println(roomList.size());
+        //System.out.println(roomList.size());
         return roomList;
     
    }
-   
+  
+   public static ArrayList<Tables> ResTableIns(String ResID)
+   {
+       String TableData = "Select * FROM Resturant_table where ResID=?";
+       Connection conn = Connect_DB.getConnection();
+       ArrayList<Tables> TableDataList = new ArrayList<Tables>();
+       
+       
+        try{
+           
+           PreparedStatement ps=conn.prepareStatement(TableData);
+           ps.setString(1,ResID);
+           ResultSet rs =ps.executeQuery();
+           while(rs.next())
+           {
+               Tables table = new Tables(rs.getString(1), rs.getString(2));
+
+               TableDataList.add(table);
+           }
+       }
+       catch(Exception e){
+           JOptionPane.showMessageDialog(null, e );
+            return null;
+       }
+       // System.out.println(TableDataList.size());
+        
+          return TableDataList;
+   }
 }
    
