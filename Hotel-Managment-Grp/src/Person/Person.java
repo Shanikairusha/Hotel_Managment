@@ -66,10 +66,10 @@ public class Person implements Person_imp{
     }
 
     @Override
-    public void setPDetails() {
+    public String setPDetails() {
         JOptionPane.showMessageDialog(null,this.IdNo);
         Query_Person q = new Query_Person();
-        q.SetPerson(getIdNo(), getName(), getAddress(), getPhnNm(), getEmail());
+        return q.SetPerson(getIdNo(), getName(), getAddress(), getPhnNm(), getEmail());
     }
 
     @Override

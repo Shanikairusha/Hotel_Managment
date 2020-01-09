@@ -2,6 +2,7 @@ package Person;
 
 import Database.Query_ChangePass;
 import Database.Query_Login;
+import Database.Query_User;
 import javax.swing.JOptionPane;
 
 public class User extends Person{
@@ -56,10 +57,6 @@ public class User extends Person{
         super(IdNo, Name, Address, PhnNm, Email);
     }
     
-    public User(String userId, String password, String role){
-        this.userId=userId;
-        
-    }
     
     public User (String UserId, String Password, String Newpass, String Conpass){
         this.userId = UserId;
@@ -73,9 +70,14 @@ public class User extends Person{
         this.password = password;
     }
     
+    public User(){
+    
+    }
+    
     public String SetUDetails(){
+        Query_User qu = new Query_User();
+        return qu.setUser(getUserId(),getIdNo(),getPassword(),getRole());
         
-        return null;
     }
     
     public String userlogin(){

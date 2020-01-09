@@ -6,6 +6,7 @@
 package Interface;
 
 import Person.Person;
+import Person.User;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 
@@ -49,6 +50,7 @@ public class Home extends javax.swing.JFrame {
         lbl_username = new javax.swing.JLabel();
         jLayeredPane1 = new javax.swing.JLayeredPane();
         pnlemployee = new javax.swing.JPanel();
+        jLabel19 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
         jLabel12 = new javax.swing.JLabel();
@@ -270,6 +272,9 @@ public class Home extends javax.swing.JFrame {
 
         pnlemployee.setBackground(new java.awt.Color(23, 31, 44));
 
+        jLabel19.setForeground(new java.awt.Color(0, 204, 204));
+        jLabel19.setText("USER-");
+
         jLabel11.setBackground(new java.awt.Color(255, 255, 255));
         jLabel11.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 12)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
@@ -394,7 +399,11 @@ public class Home extends javax.swing.JFrame {
                         .addGap(286, 286, 286))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlemployeeLayout.createSequentialGroup()
                         .addGroup(pnlemployeeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txt_euserid, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlemployeeLayout.createSequentialGroup()
+                                .addGap(0, 6, Short.MAX_VALUE)
+                                .addComponent(jLabel19)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txt_euserid, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jSeparator4))
                         .addGap(102, 102, 102))
                     .addGroup(pnlemployeeLayout.createSequentialGroup()
@@ -448,21 +457,23 @@ public class Home extends javax.swing.JFrame {
                         .addComponent(jSeparator10))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlemployeeLayout.createSequentialGroup()
                         .addGap(72, 72, 72)
-                        .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txt_euserid, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addGroup(pnlemployeeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txt_euserid, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel19))
                         .addGap(4, 4, 4)
-                        .addComponent(jSeparator4, javax.swing.GroupLayout.DEFAULT_SIZE, 10, Short.MAX_VALUE)
+                        .addComponent(jSeparator4, javax.swing.GroupLayout.DEFAULT_SIZE, 12, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
+                        .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txt_epass, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator9, javax.swing.GroupLayout.DEFAULT_SIZE, 10, Short.MAX_VALUE)
+                        .addComponent(jSeparator9, javax.swing.GroupLayout.DEFAULT_SIZE, 13, Short.MAX_VALUE)
                         .addGap(34, 34, 34)
                         .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cmb_erole, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+                        .addComponent(cmb_erole, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
                         .addGap(54, 54, 54)
                         .addGroup(pnlemployeeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btn_close1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -480,7 +491,7 @@ public class Home extends javax.swing.JFrame {
             .addGroup(pnlhomeLayout.createSequentialGroup()
                 .addGap(309, 309, 309)
                 .addComponent(jLabel7)
-                .addContainerGap(607, Short.MAX_VALUE))
+                .addContainerGap(660, Short.MAX_VALUE))
         );
         pnlhomeLayout.setVerticalGroup(
             pnlhomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -706,8 +717,18 @@ public class Home extends javax.swing.JFrame {
 
     private void btn_close1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_close1ActionPerformed
        Person p = new Person(txt_eidno.getText(),txt_ename.getText(),txt_eaddress.getText(),Integer.parseInt(txt_ephoneno.getText()),txt_eemail.getText());
+       
+       User u = new User();
+       u.setUserId(txt_euserid.getText());
+       u.setIdNo(txt_eidno.getText());
+       u.setPassword(String.valueOf(txt_epass.getPassword()));
+       u.setRole((String) cmb_erole.getSelectedItem());
+       
+       
        //JOptionPane.showMessageDialog(null,txt_eidno.getText());
-       p.setPDetails();
+       JOptionPane.showMessageDialog(null,p.setPDetails());
+       JOptionPane.showMessageDialog(null,u.SetUDetails());
+       
     }//GEN-LAST:event_btn_close1ActionPerformed
 
     /**
@@ -762,6 +783,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
