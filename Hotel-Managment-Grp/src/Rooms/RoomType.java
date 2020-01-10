@@ -12,7 +12,7 @@ package Rooms;
 public class RoomType {
     private String RoomType;
     private String Details;
-    private String Space;
+    
 
     public String getRoomType() {
         return RoomType;
@@ -30,18 +30,12 @@ public class RoomType {
         this.Details = Details;
     }
 
-    public String getSpace() {
-        return Space;
-    }
+   
 
-    public void setSpace(String Space) {
-        this.Space = Space;
-    }
-
-    public RoomType(String RoomType, String Details, String Space) {
+    public RoomType(String RoomType, String Details) {
         this.RoomType = RoomType;
         this.Details = Details;
-        this.Space = Space;
+       
     }
     
     

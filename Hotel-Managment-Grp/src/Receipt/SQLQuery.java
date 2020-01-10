@@ -178,5 +178,27 @@ public class SQLQuery {
         
           return TableDataList;
    }
+   
+   public static int inserttoReceipt(String ResID,int days,double total)
+   {
+       String insertquery = "INSERT INTO Receipts (ResID,StayedDates,Total) VALUES (?,?,?)";
+       Connection conn=Connect_DB.getConnection();
+       
+       
+        try{
+           
+           PreparedStatement ps=conn.prepareStatement(insertquery);
+           ps.setString(1,ResID);
+           ps.setInt(2, days);
+           ps.setDouble(3, total);
+           ps.execute();
+          return 1;
+       }
+       catch(Exception e){
+           JOptionPane.showMessageDialog(null, e );
+            return 0;
+       }
+        
+   }
 }
    
