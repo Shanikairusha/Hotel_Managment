@@ -7,8 +7,11 @@ package Interface;
 
 import Database.DBConnManager;
 import Person.User;
+import Validation.User_Validation;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -24,6 +27,8 @@ public class ChangePass extends javax.swing.JFrame {
     
     public ChangePass() {
         initComponents();
+        GetUserIDs();
+        
     }
 
     /**
@@ -37,7 +42,6 @@ public class ChangePass extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        txt_user = new javax.swing.JTextField();
         txt_pass = new javax.swing.JPasswordField();
         txt_newpass = new javax.swing.JPasswordField();
         txt_conpass = new javax.swing.JPasswordField();
@@ -51,7 +55,7 @@ public class ChangePass extends javax.swing.JFrame {
         jSeparator3 = new javax.swing.JSeparator();
         jSeparator4 = new javax.swing.JSeparator();
         jSeparator5 = new javax.swing.JSeparator();
-        jLabel1 = new javax.swing.JLabel();
+        cmbUserID = new javax.swing.JComboBox();
         jPanel3 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -79,27 +83,27 @@ public class ChangePass extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(23, 31, 44));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        txt_user.setBackground(new java.awt.Color(23, 31, 44));
-        txt_user.setForeground(new java.awt.Color(255, 255, 255));
-        txt_user.setBorder(null);
-        txt_user.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txt_userKeyPressed(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txt_userKeyTyped(evt);
-            }
-        });
-        jPanel2.add(txt_user, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 60, 310, -1));
-
         txt_pass.setBackground(new java.awt.Color(23, 31, 44));
         txt_pass.setForeground(new java.awt.Color(255, 255, 255));
         txt_pass.setBorder(null);
+        txt_pass.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_passKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_passKeyTyped(evt);
+            }
+        });
         jPanel2.add(txt_pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 120, 360, -1));
 
         txt_newpass.setBackground(new java.awt.Color(23, 31, 44));
         txt_newpass.setForeground(new java.awt.Color(255, 255, 255));
         txt_newpass.setBorder(null);
+        txt_newpass.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_newpassKeyTyped(evt);
+            }
+        });
         jPanel2.add(txt_newpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 190, 370, -1));
 
         txt_conpass.setBackground(new java.awt.Color(23, 31, 44));
@@ -139,7 +143,7 @@ public class ChangePass extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("USERNAME");
-        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, -1, -1));
+        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 30, -1, -1));
 
         jLabel9.setBackground(new java.awt.Color(255, 255, 255));
         jLabel9.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 12)); // NOI18N
@@ -157,9 +161,11 @@ public class ChangePass extends javax.swing.JFrame {
         jPanel2.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 140, 370, 20));
         jPanel2.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, 370, 20));
 
-        jLabel1.setForeground(new java.awt.Color(0, 204, 204));
-        jLabel1.setText("USER-");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, -1, -1));
+        cmbUserID.setBackground(new java.awt.Color(102, 102, 102));
+        cmbUserID.setFont(new java.awt.Font("Microsoft YaHei Light", 0, 11)); // NOI18N
+        cmbUserID.setForeground(new java.awt.Color(255, 255, 255));
+        cmbUserID.setBorder(null);
+        jPanel2.add(cmbUserID, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, 370, -1));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 40, 570, 370));
 
@@ -198,12 +204,36 @@ public class ChangePass extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    public void GetUserIDs(){
+        ResultSet rslt = null;
+        String Result;
+        dbConnManager = new DBConnManager();  
+        PreparedStatement pst = null;
+        Connection dbConn = null;
+        
+        try{
+            dbConn = dbConnManager.connect();
+            Statement stmt = dbConn.createStatement();
+            String query = "SELECT UserID from user";
+            pst=dbConn.prepareStatement(query);
+            rslt = pst.executeQuery(query);
+            while(rslt.next()){
+                cmbUserID.addItem(rslt.getString(1));
+            }
+        }
+        catch(SQLException ex)
+        {
+            //rslt = (String)ex.getMessage();
+            JOptionPane.showMessageDialog(null,(String)ex.getMessage());
+        } 
+
+    }
     
-    
+    public static User_Validation v = new User_Validation();
     
     private void btn_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_loginActionPerformed
         
-        User u = new User(txt_user.getText(),String.valueOf(txt_pass.getPassword()),String.valueOf(txt_newpass.getPassword()),String.valueOf(txt_conpass.getPassword())); 
+        User u = new User((String) cmbUserID.getSelectedItem(),String.valueOf(txt_pass.getPassword()),String.valueOf(txt_newpass.getPassword()),String.valueOf(txt_conpass.getPassword())); 
         JOptionPane.showMessageDialog(null,u.changePass());
     }//GEN-LAST:event_btn_loginActionPerformed
 
@@ -232,16 +262,18 @@ public class ChangePass extends javax.swing.JFrame {
         this.setLocation(x-xx1, y-yy1);
     }//GEN-LAST:event_jPanel1MouseDragged
 
-    private void txt_userKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_userKeyPressed
+    private void txt_passKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_passKeyPressed
         
-    }//GEN-LAST:event_txt_userKeyPressed
+    }//GEN-LAST:event_txt_passKeyPressed
 
-    private void txt_userKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_userKeyTyped
-        char enter = evt.getKeyChar();
-        if(!(Character.isDigit(enter))){
-            evt.consume();
-        }
-    }//GEN-LAST:event_txt_userKeyTyped
+    
+    private void txt_passKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_passKeyTyped
+        
+    }//GEN-LAST:event_txt_passKeyTyped
+
+    private void txt_newpassKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_newpassKeyTyped
+        
+    }//GEN-LAST:event_txt_newpassKeyTyped
 
     /**
      * @param args the command line arguments
@@ -282,7 +314,7 @@ public class ChangePass extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_close;
     private javax.swing.JButton btn_login;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JComboBox cmbUserID;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel4;
@@ -301,6 +333,6 @@ public class ChangePass extends javax.swing.JFrame {
     private javax.swing.JPasswordField txt_conpass;
     private javax.swing.JPasswordField txt_newpass;
     private javax.swing.JPasswordField txt_pass;
-    private javax.swing.JTextField txt_user;
     // End of variables declaration//GEN-END:variables
+
 }

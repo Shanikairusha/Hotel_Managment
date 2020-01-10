@@ -3,6 +3,7 @@ package Database;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.JOptionPane;
 
 public class Query_User {
 
@@ -17,7 +18,9 @@ public class Query_User {
         try{
             dbConn = dbConnManager.connect();
             Statement stmt = dbConn.createStatement();
-            String query = "INSERT INTO user VALUES ('"+"USER-"+userId+"','"+IdNo+"','"+Role+"','"+Password+"')";
+            userId = "USER-".concat(userId);
+            
+            String query = "INSERT INTO user VALUES ('"+userId+"','"+IdNo+"','"+Role+"','"+Password+"')";
             
             int rs = stmt.executeUpdate(query);
             if(rs > 0){
@@ -31,7 +34,6 @@ public class Query_User {
         catch(SQLException ex)
         {
             rslt = (String)ex.getMessage();
-            
         } 
         
         return rslt;

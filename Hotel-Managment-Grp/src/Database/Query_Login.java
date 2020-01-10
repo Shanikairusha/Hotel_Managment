@@ -13,7 +13,7 @@ public class Query_Login {
 
     private DBConnManager dbConnManager = null; 
     
-    public String login(String userID, String Password){
+    public void login(String userID, String Password){
         dbConnManager = new DBConnManager();  
         Connection dbConn;
         String result; 
@@ -21,24 +21,26 @@ public class Query_Login {
         try{
             dbConn = dbConnManager.connect();
             Statement stmt = dbConn.createStatement();
-            //JOptionPane.showMessageDialog(null,userID);
-            String query = "SELECT * FROM user WHERE UserID = '" +"USER-"+ userID + "' and Password = '" + Password +"' ";
+            String query = "SELECT * FROM user WHERE UserID = '"+ userID + "' and Password = '" + Password +"' ";
             
             ResultSet rs = stmt.executeQuery(query);
             if(rs.next()){
-                result = "Access Granted !";
+                result = "Login Successful!";
+                JOptionPane.showMessageDialog(null, result, "INFO", JOptionPane.INFORMATION_MESSAGE);
+               
             }
             else
             {
-                result = "Access Denied!";
+                result = "Invalid Password!";
+                JOptionPane.showMessageDialog(null, result, "WARNNING", JOptionPane.WARNING_MESSAGE);
             }
         }
         catch(SQLException ex)
         {
             result = ex.getMessage();  
-            
+            JOptionPane.showMessageDialog(null, result, "WARNNING", JOptionPane.WARNING_MESSAGE);
         }
         
-        return result;
+        
     }
 }

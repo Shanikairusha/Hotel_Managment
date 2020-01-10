@@ -5,9 +5,15 @@
  */
 package Interface;
 
+import Database.DBConnManager;
+import Database.Query_Person;
 import Person.Person;
 import Person.User;
 import java.awt.Color;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
 
 /**
@@ -21,8 +27,11 @@ public class Home extends javax.swing.JFrame {
      */
     public Home() {
         initComponents();
+        Query_Person qp = new Query_Person();
+        qp.ID();
+        txt_euserid.setText(qp.getAutoGenUserId());
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -75,7 +84,7 @@ public class Home extends javax.swing.JFrame {
         txt_euserid = new javax.swing.JTextField();
         txt_eaddress = new javax.swing.JTextField();
         btn_close = new javax.swing.JButton();
-        btn_close1 = new javax.swing.JButton();
+        btn_AddEmp = new javax.swing.JButton();
         pnlhome = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         pnlbooking = new javax.swing.JPanel();
@@ -355,12 +364,12 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
-        btn_close1.setBackground(new java.awt.Color(88, 200, 197));
-        btn_close1.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
-        btn_close1.setText("ADD");
-        btn_close1.addActionListener(new java.awt.event.ActionListener() {
+        btn_AddEmp.setBackground(new java.awt.Color(88, 200, 197));
+        btn_AddEmp.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
+        btn_AddEmp.setText("ADD");
+        btn_AddEmp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_close1ActionPerformed(evt);
+                btn_AddEmpActionPerformed(evt);
             }
         });
 
@@ -400,7 +409,7 @@ public class Home extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlemployeeLayout.createSequentialGroup()
                         .addGroup(pnlemployeeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(pnlemployeeLayout.createSequentialGroup()
-                                .addGap(0, 6, Short.MAX_VALUE)
+                                .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(jLabel19)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txt_euserid, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -412,7 +421,7 @@ public class Home extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlemployeeLayout.createSequentialGroup()
                         .addGroup(pnlemployeeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(pnlemployeeLayout.createSequentialGroup()
-                                .addComponent(btn_close1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btn_AddEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btn_close, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(cmb_erole, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -476,7 +485,7 @@ public class Home extends javax.swing.JFrame {
                         .addComponent(cmb_erole, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
                         .addGap(54, 54, 54)
                         .addGroup(pnlemployeeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btn_close1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_AddEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btn_close, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(44, 44, 44))
         );
@@ -649,6 +658,7 @@ public class Home extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jLabel2MouseEntered
 
+    
     private void jLabel2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MousePressed
         homebtn.setBackground(new Color(124,197,197));
          bookingbtn.setBackground(new Color(43,126,126));
@@ -715,8 +725,9 @@ public class Home extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btn_closeActionPerformed
 
-    private void btn_close1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_close1ActionPerformed
-       Person p = new Person(txt_eidno.getText(),txt_ename.getText(),txt_eaddress.getText(),Integer.parseInt(txt_ephoneno.getText()),txt_eemail.getText());
+    private void btn_AddEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AddEmpActionPerformed
+       
+        Person p = new Person(txt_eidno.getText(),txt_ename.getText(),txt_eaddress.getText(),Integer.parseInt(txt_ephoneno.getText()),txt_eemail.getText());
        
        User u = new User();
        u.setUserId(txt_euserid.getText());
@@ -729,7 +740,7 @@ public class Home extends javax.swing.JFrame {
        JOptionPane.showMessageDialog(null,p.setPDetails());
        JOptionPane.showMessageDialog(null,u.SetUDetails());
        
-    }//GEN-LAST:event_btn_close1ActionPerformed
+    }//GEN-LAST:event_btn_AddEmpActionPerformed
 
     /**
      * @param args the command line arguments
@@ -769,8 +780,8 @@ public class Home extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Banner;
     private javax.swing.JPanel bookingbtn;
+    private javax.swing.JButton btn_AddEmp;
     private javax.swing.JButton btn_close;
-    private javax.swing.JButton btn_close1;
     private javax.swing.JComboBox cmb_erole;
     private javax.swing.JPanel homebtn;
     private javax.swing.JLabel jLabel1;

@@ -2,8 +2,10 @@ package Database;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.JOptionPane;
 
 public class Query_Person {
 
@@ -37,5 +39,45 @@ public class Query_Person {
         
         return rslt;
     
+    }
+    
+    private String AutoGenUserId;
+
+    public String getAutoGenUserId() {
+        return AutoGenUserId;
+    }
+
+    public void setAutoGenUserId(String AutoGenUserId) {
+        this.AutoGenUserId = AutoGenUserId;
+    }
+    
+    public void ID()
+    {
+      DBConnManager dbConnManager = null; 
+        dbConnManager = new DBConnManager();  
+        Connection dbConn = null;
+        dbConn = dbConnManager.connect();
+      try{
+          ResultSet rest = null;
+          Statement stm = dbConn.createStatement();
+            try{
+                rest= stm.executeQuery("select MAX(SUBSTRING_INDEX(UserID,'-',-1)) AS ExtractString FROM user");      
+            }
+            catch(SQLException ex){
+                JOptionPane.showMessageDialog( null, ex.getMessage() );
+            }
+     
+            int x=0;
+            while (rest.next())
+                {
+                x= rest.getInt(1);
+                }
+            setAutoGenUserId((++x)+"");
+            //txt_euserid.setText();
+     
+      }
+       catch(SQLException exx){
+           JOptionPane.showMessageDialog( null, exx.getMessage() );
+       }
     }
 }

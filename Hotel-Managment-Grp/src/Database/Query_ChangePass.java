@@ -27,7 +27,7 @@ public class Query_ChangePass {
                 dbConn = dbConnManager.connect();
                 Statement stmt = dbConn.createStatement();
                 
-                String query = "SELECT * FROM user WHERE UserID = '"+"USER-"+userId+"' and Password = '"+password+"' ";
+                String query = "SELECT * FROM user WHERE UserID = '"+userId+"' and Password = '"+password+"' ";
 
                 ResultSet rs = stmt.executeQuery(query);
                 if(rs.next()){
@@ -64,7 +64,7 @@ public class Query_ChangePass {
         try{
             dbConn = dbConnManager.connect();
             Statement stmt = dbConn.createStatement();
-            String query = "UPDATE user SET Password = '"+conpass+"' WHERE UserID='"+"USER-"+userId+"'";
+            String query = "UPDATE user SET Password = '"+conpass+"' WHERE UserID='"+userId+"'";
             
             int rs = stmt.executeUpdate(query);
            // JOptionPane.showMessageDialog(null,rs);

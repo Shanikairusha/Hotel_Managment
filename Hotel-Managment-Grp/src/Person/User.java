@@ -80,9 +80,9 @@ public class User extends Person{
         
     }
     
-    public String userlogin(){
+    public void userlogin(){
         Query_Login ql = new Query_Login();
-        return ql.login(getUserId(),getPassword());
+        ql.login(getUserId(),getPassword());
     }
     
     public String changePass(){

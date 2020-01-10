@@ -488,7 +488,7 @@
                           <Group type="102" alignment="1" attributes="0">
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Group type="102" attributes="0">
-                                      <EmptySpace min="0" pref="6" max="32767" attributes="0"/>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                       <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="txt_euserid" min="-2" pref="289" max="-2" attributes="0"/>
@@ -504,7 +504,7 @@
                           <Group type="102" alignment="1" attributes="0">
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Group type="102" attributes="0">
-                                      <Component id="btn_close1" min="-2" pref="116" max="-2" attributes="0"/>
+                                      <Component id="btn_AddEmp" min="-2" pref="116" max="-2" attributes="0"/>
                                       <EmptySpace max="32767" attributes="0"/>
                                       <Component id="btn_close" min="-2" pref="116" max="-2" attributes="0"/>
                                   </Group>
@@ -576,7 +576,7 @@
                               <Component id="cmb_erole" pref="30" max="32767" attributes="0"/>
                               <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="btn_close1" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
+                                  <Component id="btn_AddEmp" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
                                   <Component id="btn_close" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -840,7 +840,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_closeActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="btn_close1">
+            <Component class="javax.swing.JButton" name="btn_AddEmp">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="c5" green="c8" red="58" type="rgb"/>
@@ -851,7 +851,7 @@
                 <Property name="text" type="java.lang.String" value="ADD"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_close1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_AddEmpActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
