@@ -38,7 +38,7 @@ public class Query_Login {
         catch(SQLException ex)
         {
             result = ex.getMessage();  
-            JOptionPane.showMessageDialog(null, result, "WARNNING", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, result, "ERROR", JOptionPane.ERROR_MESSAGE);
         }
         
         

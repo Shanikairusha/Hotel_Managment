@@ -234,7 +234,7 @@ public class ChangePass extends javax.swing.JFrame {
     private void btn_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_loginActionPerformed
         
         User u = new User((String) cmbUserID.getSelectedItem(),String.valueOf(txt_pass.getPassword()),String.valueOf(txt_newpass.getPassword()),String.valueOf(txt_conpass.getPassword())); 
-        JOptionPane.showMessageDialog(null,u.changePass());
+        u.changePass();
     }//GEN-LAST:event_btn_loginActionPerformed
 
     private void btn_closeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_closeActionPerformed

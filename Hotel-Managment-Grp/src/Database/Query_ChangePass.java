@@ -11,11 +11,12 @@ public class Query_ChangePass {
 
     private DBConnManager dbConnManager = null; 
     
-    public String validation(String userId, String password, String newpass, String conpass){
+    public void validation(String userId, String password, String newpass, String conpass){
         String result = null;
         if(userId.equals("") || password.equals("") || newpass.equals("") || conpass.equals(""))
         {
             result = "Empty Value!";  
+            JOptionPane.showMessageDialog(null, result, "WARNNING", JOptionPane.WARNING_MESSAGE);
         }
         else
         {
@@ -32,15 +33,17 @@ public class Query_ChangePass {
                 ResultSet rs = stmt.executeQuery(query);
                 if(rs.next()){
                     if(String.valueOf(newpass).equals(String.valueOf(conpass))){
-                        result = PassChange(userId,conpass);
+                        PassChange(userId,conpass);
                     }
                     else{
                         result = "Confirm Password not matchs";
+                        JOptionPane.showMessageDialog(null, result, "WARNNING", JOptionPane.WARNING_MESSAGE);
                     }
                 }
                 else
                 {
-                    result = "Access Den00ied!";
+                    result = "Invalid Password!";
+                    JOptionPane.showMessageDialog(null, result, "WARNNING", JOptionPane.WARNING_MESSAGE);
                 }
             }
             catch(SQLException ex)
@@ -52,10 +55,10 @@ public class Query_ChangePass {
             }
             
         }
-        return result;
+  
     }
     
-    public String PassChange(String userId, String conpass){
+    public void PassChange(String userId, String conpass){
         
         String rslt = null;
         dbConnManager = new DBConnManager();  
@@ -70,19 +73,19 @@ public class Query_ChangePass {
            // JOptionPane.showMessageDialog(null,rs);
             if(rs == 1){
                 rslt = "Password Changed.";
+                JOptionPane.showMessageDialog(null, rslt, "INFO", JOptionPane.INFORMATION_MESSAGE);
             }
             else
             {
                 rslt = "Password Change Failed! ";
+                JOptionPane.showMessageDialog(null, rslt, "ERROR", JOptionPane.ERROR_MESSAGE);
             }
         }
         catch(SQLException ex)
         {
             rslt = ex.getMessage();  
+            JOptionPane.showMessageDialog(null, rslt, "ERROR", JOptionPane.ERROR_MESSAGE);
             
         } 
-        
-        return rslt;
-    
     }
 }

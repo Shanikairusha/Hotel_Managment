@@ -85,10 +85,10 @@ public class User extends Person{
         ql.login(getUserId(),getPassword());
     }
     
-    public String changePass(){
+    public void changePass(){
         //JOptionPane.showMessageDialog(null,this.getUserId());
         Query_ChangePass qcp = new Query_ChangePass();
-        return qcp.validation(getUserId(),getPassword(),getNewpass(),getConpass());
+        qcp.validation(getUserId(),getPassword(),getNewpass(),getConpass());
     }
 
     
