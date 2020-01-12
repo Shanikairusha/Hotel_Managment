@@ -17,6 +17,18 @@ public class HotelManagment {
     public static void main(String[] args) {
         // TODO code application logic here
         System.out.println("Hello Fuckers");
+        Thread t = Thread.currentThread();
+System.out.println("Current thread: "+ t);
+t.setName("My thread");
+System.out.println("After name change: "+ t);
+try {
+for(int n=5; n>0; n--){
+System.out.println(n);
+Thread.sleep(10000);
+}
+}catch (InterruptedException e){
+System.out.println("Main thread interrupted");
+}
         
     }
     

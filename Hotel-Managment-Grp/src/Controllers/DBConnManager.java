@@ -1,4 +1,4 @@
-package hotel.managment;
+package Controllers;
 
 
 import java.sql.Connection;
@@ -9,11 +9,13 @@ import javax.swing.JOptionPane;
 
 
 public class DBConnManager {
-    public String sourceURL;
+     public String sourceURL;
+     
     public DBConnManager() {         
         try {             
             Class.forName("com.mysql.jdbc.Driver");             
-            sourceURL = "jdbc:mysql://localhost:3306/hotel managment?";         
+            sourceURL = "jdbc:mysql://localhost:3306/hotel managment?";     
+            
         } 
         catch (ClassNotFoundException classNotFoundException) 
         {             
@@ -21,11 +23,12 @@ public class DBConnManager {
         }     
     } 
     
-    public Connection connect() {         
+    public static Connection connect() {         
         Connection dbConn = null;         
         try {             
             
-            dbConn = DriverManager.getConnection(sourceURL, "root", "");
+            dbConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hotel managment?","root","");
+            
         } 
         catch (SQLException sQLException) 
         {             
@@ -33,9 +36,11 @@ public class DBConnManager {
         }         
         return dbConn;  
     }
-    public void connectionClose(Connection dbConn) {         
+    public static void connectionClose(Connection dbConn) {         
         try {             
+            
             dbConn.close();         
+           
         } 
         catch (SQLException sQLException) 
         {             
