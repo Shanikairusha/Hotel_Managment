@@ -6,13 +6,16 @@
 package Interface;
 
 
-import hotel.managment.DBConnManager;
+import Database.DBConnManager;
+import Database.Query_Login;
+import Person.User;
 import java.awt.Window;
 import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.Arrays;
 import javax.swing.JOptionPane;
@@ -33,6 +36,7 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         
         initComponents();
+        GetUserIDs();
     }
 
     /**
@@ -49,7 +53,6 @@ public class Login extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        txt_user = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         txt_pass = new javax.swing.JPasswordField();
         btn_login = new javax.swing.JButton();
@@ -57,7 +60,7 @@ public class Login extends javax.swing.JFrame {
         btn_changepass = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
-        jLabel3 = new javax.swing.JLabel();
+        cmbUserID = new javax.swing.JComboBox();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
 
@@ -95,13 +98,7 @@ public class Login extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("USERNAME");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 90, -1, -1));
-
-        txt_user.setBackground(new java.awt.Color(23, 31, 44));
-        txt_user.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        txt_user.setForeground(new java.awt.Color(255, 255, 255));
-        txt_user.setBorder(null);
-        jPanel1.add(txt_user, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 110, 300, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 80, -1, -1));
 
         jLabel2.setBackground(new java.awt.Color(255, 255, 255));
         jLabel2.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 12)); // NOI18N
@@ -150,9 +147,11 @@ public class Login extends javax.swing.JFrame {
         jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 190, 340, 10));
         jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, 340, 10));
 
-        jLabel3.setForeground(new java.awt.Color(0, 204, 204));
-        jLabel3.setText("USER-");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 110, -1, -1));
+        cmbUserID.setBackground(new java.awt.Color(102, 102, 102));
+        cmbUserID.setFont(new java.awt.Font("Microsoft YaHei Light", 0, 11)); // NOI18N
+        cmbUserID.setForeground(new java.awt.Color(255, 255, 255));
+        cmbUserID.setBorder(null);
+        jPanel1.add(cmbUserID, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 100, 340, -1));
 
         jPanel3.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 40, 490, 310));
 
@@ -177,8 +176,36 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    public void GetUserIDs(){
+        ResultSet rslt = null;
+        String Result;
+        dbConnManager = new DBConnManager();  
+        PreparedStatement pst = null;
+        Connection dbConn = null;
+        
+        try{
+            dbConn = dbConnManager.connect();
+            Statement stmt = dbConn.createStatement();
+            String query = "SELECT UserID from user";
+            pst=dbConn.prepareStatement(query);
+            rslt = pst.executeQuery(query);
+            while(rslt.next()){
+                cmbUserID.addItem(rslt.getString(1));
+            }
+        }
+        catch(SQLException ex)
+        {
+            //rslt = (String)ex.getMessage();
+            JOptionPane.showMessageDialog(null,(String)ex.getMessage());
+        } 
+
+    }
+    
     private void btn_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_loginActionPerformed
-        JOptionPane.showMessageDialog(null,log());
+        
+        User u  = new User((String) cmbUserID.getSelectedItem(),String.valueOf(txt_pass.getPassword()));
+        u.userlogin();
     }//GEN-LAST:event_btn_loginActionPerformed
 
     private void btn_closeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_closeActionPerformed
@@ -213,33 +240,7 @@ public class Login extends javax.swing.JFrame {
         this.setLocation(x-xx, y-yy);
     }//GEN-LAST:event_jPanel3MouseDragged
 
-    public String log(){
-        dbConnManager = new DBConnManager();  
-        Connection dbConn = null;
-        String result; 
-        
-        try{
-            dbConn = dbConnManager.connect();
-            Statement stmt = dbConn.createStatement();
-            String query = "SELECT * FROM login WHERE username = '" + "USER-" + txt_user.getText() + "' and password = '" + String.valueOf(txt_pass.getPassword())+"' ";
-            
-            ResultSet rs = stmt.executeQuery(query);
-            if(rs.next()){
-                result = "Access Granted !";
-            }
-            else
-            {
-                result = "Access Denied!";
-            }
-        }
-        catch(SQLException ex)
-        {
-            result = ex + "  The entered student ID cannot be found.";  
-            
-        }
-        
-        return result;
-    }
+    
     /**
      * @param args the command line arguments
      */
@@ -269,6 +270,10 @@ public class Login extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -282,9 +287,9 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JButton btn_changepass;
     private javax.swing.JButton btn_close;
     private javax.swing.JButton btn_login;
+    private javax.swing.JComboBox cmbUserID;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -294,6 +299,5 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JPasswordField txt_pass;
-    private javax.swing.JTextField txt_user;
     // End of variables declaration//GEN-END:variables
 }

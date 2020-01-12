@@ -5,7 +5,7 @@
  */
 package Person;
 
-import Database.Connect_DB;
+import Database.DBConnManager;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,7 +19,7 @@ import java.sql.Statement;
 
 public interface Person_imp {
     
-    public void setDetails();
+    public String setPDetails();
     public void getDetails();
         
 }

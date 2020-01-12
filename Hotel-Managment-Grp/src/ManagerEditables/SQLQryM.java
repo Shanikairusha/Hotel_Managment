@@ -171,7 +171,7 @@ public class SQLQryM {
            ps.setDouble(3, rate);
 
            int rs =ps.executeUpdate();
-          
+           JOptionPane.showMessageDialog(null, "Inserted succesfully" );
            return 1;
        }
        catch(Exception e){
