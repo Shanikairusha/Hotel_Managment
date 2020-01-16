@@ -38,7 +38,7 @@ public class SQLQryM {
              ResultSet rs = st.executeQuery(query);
              
              while(rs.next()){
-                 RoomMap rmMpTB = new RoomMap(rs.getString(1), rs.getString(2), rs.getDouble(3));
+                 RoomMap rmMpTB = new RoomMap(rs.getString(1), rs.getString(2), rs.getDouble(3),rs.getInt(4));
                  RoomMapTB.add(rmMpTB);
              }
         }
@@ -178,6 +178,26 @@ public class SQLQryM {
            JOptionPane.showMessageDialog(null, e );
             return 0;
        }
+     }
+     
+     public static int DeleteRoom(String RoomNo){
+         String query = "Delete from Roommap where RoomNo =?";
+         java.sql.Connection conn = Connect_DB.getConnection();
+         
+          try{
+           
+           PreparedStatement ps=conn.prepareStatement(query);
+           ps.setString(1,RoomNo);
+           int rs =ps.executeUpdate();
+           JOptionPane.showMessageDialog(null, "Deleted the record succesfully" );
+           return 1;
+       }
+       catch(Exception e){
+           JOptionPane.showMessageDialog(null, e );
+            return 0;
+       }
+         
+         
      }
      
 }

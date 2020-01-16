@@ -3,6 +3,7 @@ package Person;
 import Database.Query_ChangePass;
 import Database.Query_Login;
 import Database.Query_User;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class User extends Person{
@@ -12,6 +13,16 @@ public class User extends Person{
     private String role;
     private String newpass;
     private String conpass;
+    
+    private ArrayList list;
+
+    public ArrayList getList() {
+        return list;
+    }
+
+    public void setList(ArrayList list) {
+        this.list = list;
+    }
 
     public String getNewpass() {
         return newpass;
@@ -74,15 +85,21 @@ public class User extends Person{
     
     }
     
-    public String SetUDetails(){
+    public void SetUDetails(){
         Query_User qu = new Query_User();
-        return qu.setUser(getUserId(),getIdNo(),getPassword(),getRole());
+        qu.setUser(getUserId(),getIdNo(),getPassword(),getRole());
+        
+    }
+    public void UpdateUDetails(){
+        Query_User qu = new Query_User();
+        qu.UpdateUser(getUserId(),getIdNo(),getRole());
         
     }
     
-    public void userlogin(){
+    public boolean userlogin(){
         Query_Login ql = new Query_Login();
-        ql.login(getUserId(),getPassword());
+        return ql.login(getUserId(),getPassword());
+        
     }
     
     public void changePass(){

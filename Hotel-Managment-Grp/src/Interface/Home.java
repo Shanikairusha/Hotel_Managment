@@ -6,6 +6,7 @@
 package Interface;
 
 import Control.Home_Receipt_Control;
+import Database.Query_Person;
 import Encryption.Enc_Dec;
 import FILE.write_read;
 import ManagerEditables.SQLQryM;
@@ -16,10 +17,12 @@ import Receipt.Receipt;
 import Rooms.RoomMap;
 import Tables.Tables;
 import Receipt.SQLQuery;
+import Report.SQLReport;
 import Reservation.Reservation;
 import Rooms.RoomType;
 import Tables.Tables;
 import Validation.PersonID;
+import Validation.User_Validation;
 import Validation.roomId;
 import java.awt.Color;
 import java.io.IOException;
@@ -27,11 +30,14 @@ import java.security.Security;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.crypto.*;
+import javax.swing.JFrame;
+import static sun.net.www.MimeTable.loadTable;
 
 /**
  *
@@ -42,6 +48,38 @@ public class Home extends javax.swing.JFrame {
    
     public Home() {
         initComponents();
+        
+       
+        Query_Person qp = new Query_Person();
+        qp.ID();
+        txt_euserId.setText("USER-"+qp.getAutoGenUserId());
+   
+        loadTable();
+        
+        
+    }
+    
+    public void setUserInfo( String UserId, String username, String role){
+    
+        lbl_userid.setText(UserId);
+        lbl_username.setText(username);
+        lbl_userRole.setText(role);
+    }
+
+    private void loadTable(){
+      
+        ((DefaultTableModel)tbl_user.getModel()).setNumRows(0);
+        ArrayList<User> usr = new ArrayList<User>();
+        
+          Query_Person sd = new Query_Person();
+        DefaultTableModel mdl = (DefaultTableModel) tbl_user.getModel();
+       
+        usr=sd.getuserDetails();
+        
+        for(int i=0;i<usr.size();i++){
+            mdl.addRow(new Object[] {usr.get(i).getName(),usr.get(i).getIdNo(),usr.get(i).getAddress(),usr.get(i).getPhnNm(),usr.get(i).getEmail(),usr.get(i).getUserId(),usr.get(i).getRole() });
+        }
+        
     }
 
     
@@ -59,15 +97,16 @@ public class Home extends javax.swing.JFrame {
         receiptlbl = new javax.swing.JLabel();
         settingbtn = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        settingbtn1 = new javax.swing.JPanel();
+        Employeebtn1 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         resturantMn = new javax.swing.JPanel();
         restMnger = new javax.swing.JLabel();
         Banner = new javax.swing.JPanel();
         userrole = new javax.swing.JPanel();
-        lbl_user = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         lbl_username = new javax.swing.JLabel();
+        lbl_userid = new javax.swing.JLabel();
+        lbl_userRole = new javax.swing.JLabel();
+        lbl_user = new javax.swing.JLabel();
         jLayeredPane1 = new javax.swing.JLayeredPane();
         pnlhome = new javax.swing.JPanel();
         pnlmanager = new javax.swing.JPanel();
@@ -92,6 +131,7 @@ public class Home extends javax.swing.JFrame {
         btnroomType = new javax.swing.JButton();
         btnRefresh = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
         pnlbooking = new javax.swing.JPanel();
         pnlresturent = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
@@ -123,8 +163,32 @@ public class Home extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
         btninsrtDB = new javax.swing.JButton();
+        lblctmrID = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         pnlsetting = new javax.swing.JPanel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        tblIncome = new javax.swing.JTable();
         jLabel9 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
+        jSeparator3 = new javax.swing.JSeparator();
+        jLabel30 = new javax.swing.JLabel();
+        lblTotal = new javax.swing.JLabel();
+        jLabel32 = new javax.swing.JLabel();
+        date1 = new com.toedter.calendar.JDateChooser();
+        jLabel33 = new javax.swing.JLabel();
+        date2 = new com.toedter.calendar.JDateChooser();
+        jSeparator11 = new javax.swing.JSeparator();
+        lblLimitedTotal = new javax.swing.JLabel();
+        jLabel35 = new javax.swing.JLabel();
+        jLabel36 = new javax.swing.JLabel();
+        lblTotalRoom = new javax.swing.JLabel();
+        jLabel46 = new javax.swing.JLabel();
+        lblReservedRoom = new javax.swing.JLabel();
+        jSeparator12 = new javax.swing.JSeparator();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        tblRoomReport = new javax.swing.JTable();
+        jLabel48 = new javax.swing.JLabel();
+        jButton10 = new javax.swing.JButton();
         pnlRoomType = new javax.swing.JPanel();
         jLabel27 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -138,33 +202,37 @@ public class Home extends javax.swing.JFrame {
         btnTypeUpdat = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
+        jButton9 = new javax.swing.JButton();
         pnlemployee = new javax.swing.JPanel();
-        jLabel37 = new javax.swing.JLabel();
         jLabel38 = new javax.swing.JLabel();
-        jSeparator4 = new javax.swing.JSeparator();
         jLabel39 = new javax.swing.JLabel();
-        jSeparator5 = new javax.swing.JSeparator();
         jLabel40 = new javax.swing.JLabel();
-        jSeparator6 = new javax.swing.JSeparator();
         jLabel41 = new javax.swing.JLabel();
-        jSeparator7 = new javax.swing.JSeparator();
-        jSeparator8 = new javax.swing.JSeparator();
         jLabel42 = new javax.swing.JLabel();
-        jSeparator9 = new javax.swing.JSeparator();
         jLabel16 = new javax.swing.JLabel();
         txt_epass = new javax.swing.JPasswordField();
         cmb_erole = new javax.swing.JComboBox();
         jLabel43 = new javax.swing.JLabel();
-        jSeparator10 = new javax.swing.JSeparator();
         jLabel44 = new javax.swing.JLabel();
         txt_ename = new javax.swing.JTextField();
         txt_ephoneno = new javax.swing.JTextField();
         txt_eidno = new javax.swing.JTextField();
         txt_eemail = new javax.swing.JTextField();
-        txt_euserid = new javax.swing.JTextField();
         txt_eaddress = new javax.swing.JTextField();
         btn_close = new javax.swing.JButton();
-        btn_AddEmp = new javax.swing.JButton();
+        btn_InsertEmp = new javax.swing.JButton();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        tbl_user = new javax.swing.JTable();
+        btn_MainInsert = new javax.swing.JButton();
+        lbl_ChangePass = new javax.swing.JLabel();
+        btn_MainUpdate = new javax.swing.JButton();
+        btn_MainDelete = new javax.swing.JButton();
+        btn_UpdateEmp = new javax.swing.JButton();
+        btn_DeleteEmp = new javax.swing.JButton();
+        txt_euserId = new javax.swing.JTextField();
+        btn_Refresh = new javax.swing.JButton();
+        btn_Clear = new javax.swing.JButton();
+        jLabel31 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addComponentListener(new java.awt.event.ComponentAdapter() {
@@ -261,9 +329,9 @@ public class Home extends javax.swing.JFrame {
         });
         settingbtn.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 230, 60));
 
-        settingbtn1.setBackground(new java.awt.Color(43, 126, 126));
-        settingbtn1.setPreferredSize(new java.awt.Dimension(270, 50));
-        settingbtn1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        Employeebtn1.setBackground(new java.awt.Color(43, 126, 126));
+        Employeebtn1.setPreferredSize(new java.awt.Dimension(270, 50));
+        Employeebtn1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel10.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
@@ -277,7 +345,7 @@ public class Home extends javax.swing.JFrame {
                 jLabel10MousePressed(evt);
             }
         });
-        settingbtn1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 230, 60));
+        Employeebtn1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 230, 60));
 
         resturantMn.setBackground(new java.awt.Color(43, 126, 126));
         resturantMn.setPreferredSize(new java.awt.Dimension(270, 50));
@@ -305,7 +373,7 @@ public class Home extends javax.swing.JFrame {
             .addComponent(bookingbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(Receiptbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(settingbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(settingbtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(Employeebtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(resturantMn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         sidemanubarLayout.setVerticalGroup(
@@ -320,7 +388,7 @@ public class Home extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(settingbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(settingbtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Employeebtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(resturantMn, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -330,59 +398,65 @@ public class Home extends javax.swing.JFrame {
 
         userrole.setBackground(new java.awt.Color(7, 7, 135));
 
-        lbl_user.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbl_user.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icons8_male_user_64px.png"))); // NOI18N
-
-        jLabel5.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("User Role");
+        javax.swing.GroupLayout userroleLayout = new javax.swing.GroupLayout(userrole);
+        userrole.setLayout(userroleLayout);
+        userroleLayout.setHorizontalGroup(
+            userroleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 233, Short.MAX_VALUE)
+        );
+        userroleLayout.setVerticalGroup(
+            userroleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 106, Short.MAX_VALUE)
+        );
 
         lbl_username.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         lbl_username.setForeground(new java.awt.Color(255, 255, 255));
         lbl_username.setText("Username");
 
-        javax.swing.GroupLayout userroleLayout = new javax.swing.GroupLayout(userrole);
-        userrole.setLayout(userroleLayout);
-        userroleLayout.setHorizontalGroup(
-            userroleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(userroleLayout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addComponent(lbl_user)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(userroleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(userroleLayout.createSequentialGroup()
-                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(23, 23, 23))
-                    .addGroup(userroleLayout.createSequentialGroup()
-                        .addComponent(lbl_username, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())))
-        );
-        userroleLayout.setVerticalGroup(
-            userroleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, userroleLayout.createSequentialGroup()
-                .addComponent(lbl_user, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(userroleLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel5)
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lbl_username)
-                .addContainerGap())
-        );
+        lbl_userid.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        lbl_userid.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_userid.setText("Username");
+
+        lbl_userRole.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        lbl_userRole.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_userRole.setText("User Role");
+
+        lbl_user.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_user.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icons8_male_user_64px.png"))); // NOI18N
 
         javax.swing.GroupLayout BannerLayout = new javax.swing.GroupLayout(Banner);
         Banner.setLayout(BannerLayout);
         BannerLayout.setHorizontalGroup(
             BannerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(BannerLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(1189, 1189, 1189)
+                .addComponent(lbl_user)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(BannerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(BannerLayout.createSequentialGroup()
+                        .addComponent(lbl_userRole, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(23, 23, 23))
+                    .addComponent(lbl_username, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lbl_userid, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(465, 465, 465)
                 .addComponent(userrole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         BannerLayout.setVerticalGroup(
             BannerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(BannerLayout.createSequentialGroup()
                 .addGap(31, 31, 31)
-                .addComponent(userrole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(BannerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(BannerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BannerLayout.createSequentialGroup()
+                            .addComponent(lbl_user, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(3, 3, 3))
+                        .addGroup(BannerLayout.createSequentialGroup()
+                            .addComponent(lbl_userRole)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(lbl_username)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(lbl_userid)))
+                    .addComponent(userrole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(32, Short.MAX_VALUE))
         );
 
@@ -409,7 +483,7 @@ public class Home extends javax.swing.JFrame {
 
             },
             new String [] {
-                "RoomNo", "RoomType", "Rates"
+                "RoomNo", "RoomType", "Rates", "Availability"
             }
         ));
         tblRMMap.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -478,6 +552,13 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
+        btnDelete.setText("Delete");
+        btnDelete.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnDeleteMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlmanagerLayout = new javax.swing.GroupLayout(pnlmanager);
         pnlmanager.setLayout(pnlmanagerLayout);
         pnlmanagerLayout.setHorizontalGroup(
@@ -496,30 +577,34 @@ public class Home extends javax.swing.JFrame {
                                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(pnlmanagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(pnlmanagerLayout.createSequentialGroup()
-                                        .addGroup(pnlmanagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(pnlmanagerLayout.createSequentialGroup()
-                                                .addGap(46, 46, 46)
-                                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlmanagerLayout.createSequentialGroup()
-                                                .addGap(40, 40, 40)
-                                                .addGroup(pnlmanagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jLabel20, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(jLabel23, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                        .addGap(51, 51, 51)
-                                        .addGroup(pnlmanagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(txtRoomNo)
-                                            .addComponent(txtRoomType)
-                                            .addComponent(txtRates, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)))
-                                    .addGroup(pnlmanagerLayout.createSequentialGroup()
                                         .addGap(40, 40, 40)
                                         .addGroup(pnlmanagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(btnroomType, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addGroup(pnlmanagerLayout.createSequentialGroup()
                                                 .addComponent(btnUpdate)
-                                                .addGap(29, 29, 29)
-                                                .addComponent(jButton3)
                                                 .addGap(18, 18, 18)
-                                                .addComponent(jButton2)))))))
+                                                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(jButton2))))
+                                    .addGroup(pnlmanagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(pnlmanagerLayout.createSequentialGroup()
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(jButton3))
+                                        .addGroup(pnlmanagerLayout.createSequentialGroup()
+                                            .addGroup(pnlmanagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(pnlmanagerLayout.createSequentialGroup()
+                                                    .addGap(46, 46, 46)
+                                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlmanagerLayout.createSequentialGroup()
+                                                    .addGap(40, 40, 40)
+                                                    .addGroup(pnlmanagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(jLabel20, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(jLabel23, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                            .addGap(51, 51, 51)
+                                            .addGroup(pnlmanagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(txtRoomNo)
+                                                .addComponent(txtRoomType)
+                                                .addComponent(txtRates, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)))))))
                         .addGap(20, 20, 20)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(pnlmanagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -548,7 +633,9 @@ public class Home extends javax.swing.JFrame {
                     .addGroup(pnlmanagerLayout.createSequentialGroup()
                         .addGroup(pnlmanagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlmanagerLayout.createSequentialGroup()
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(pnlmanagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jButton3))
                                 .addGap(28, 28, 28)
                                 .addGroup(pnlmanagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(txtRoomNo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -570,8 +657,8 @@ public class Home extends javax.swing.JFrame {
                         .addGap(44, 44, 44)
                         .addGroup(pnlmanagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnUpdate)
-                            .addComponent(jButton3)
-                            .addComponent(jButton2)))
+                            .addComponent(jButton2)
+                            .addComponent(btnDelete)))
                     .addGroup(pnlmanagerLayout.createSequentialGroup()
                         .addGap(47, 47, 47)
                         .addGroup(pnlmanagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -588,14 +675,14 @@ public class Home extends javax.swing.JFrame {
                                 .addComponent(jButton4)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(121, Short.MAX_VALUE))
+                .addContainerGap(143, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout pnlbookingLayout = new javax.swing.GroupLayout(pnlbooking);
         pnlbooking.setLayout(pnlbookingLayout);
         pnlbookingLayout.setHorizontalGroup(
             pnlbookingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1169, Short.MAX_VALUE)
+            .addGap(0, 1189, Short.MAX_VALUE)
         );
         pnlbookingLayout.setVerticalGroup(
             pnlbookingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -706,11 +793,11 @@ public class Home extends javax.swing.JFrame {
 
         jLabel14.setText("Standard rate for the reserveration of 1 table");
         pnlresturent.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 340, 240, 40));
-        pnlresturent.add(jlblRate, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 340, 90, 30));
+        pnlresturent.add(jlblRate, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 340, 90, 30));
 
         jLabel18.setText("Table Bill");
         pnlresturent.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 410, 150, 30));
-        pnlresturent.add(lblTableTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 400, 70, 30));
+        pnlresturent.add(lblTableTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 400, 100, 30));
 
         jLabel22.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel22.setText("Final Bill");
@@ -738,26 +825,191 @@ public class Home extends javax.swing.JFrame {
         });
         pnlresturent.add(btninsrtDB, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 530, 130, -1));
 
+        lblctmrID.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        pnlresturent.add(lblctmrID, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 20, 280, 40));
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel1.setText("ID No");
+        pnlresturent.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 20, 110, 40));
+
         pnlsetting.setBackground(new java.awt.Color(0, 102, 102));
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel9.setText("Setting");
+        tblIncome.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Receipt No", "Res ID", "Date", "Total"
+            }
+        ));
+        jScrollPane6.setViewportView(tblIncome);
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        jLabel9.setText("Report");
+
+        jLabel29.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel29.setText("Income");
+
+        jSeparator3.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+        jLabel30.setText("Total Income");
+
+        jLabel32.setText("Income From ");
+
+        jLabel33.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel33.setText("to");
+
+        jLabel35.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel35.setText("Rooms");
+
+        jLabel36.setText("Total No of Rooms");
+
+        jLabel46.setText("Reserved Rooms");
+
+        tblRoomReport.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Room No", "Room Type", "Rate", "Availability"
+            }
+        ));
+        jScrollPane7.setViewportView(tblRoomReport);
+
+        jLabel48.setText("List of Rooms");
+
+        jButton10.setText("calculate");
+        jButton10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton10MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlsettingLayout = new javax.swing.GroupLayout(pnlsetting);
         pnlsetting.setLayout(pnlsettingLayout);
         pnlsettingLayout.setHorizontalGroup(
             pnlsettingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlsettingLayout.createSequentialGroup()
-                .addGap(256, 256, 256)
-                .addComponent(jLabel9)
-                .addContainerGap(847, Short.MAX_VALUE))
+                .addGroup(pnlsettingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlsettingLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jSeparator11, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlsettingLayout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addGroup(pnlsettingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlsettingLayout.createSequentialGroup()
+                                .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pnlsettingLayout.createSequentialGroup()
+                                .addGroup(pnlsettingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(pnlsettingLayout.createSequentialGroup()
+                                .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(46, 46, 46)
+                                .addComponent(date1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(43, 43, 43)
+                                .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(date2, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(29, 29, 29))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlsettingLayout.createSequentialGroup()
+                                .addComponent(jButton10)
+                                .addGap(133, 133, 133)
+                                .addComponent(lblLimitedTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(124, 124, 124)))))
+                .addGap(48, 48, 48)
+                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnlsettingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlsettingLayout.createSequentialGroup()
+                        .addGap(43, 43, 43)
+                        .addComponent(jLabel36, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(88, 88, 88)
+                        .addComponent(lblTotalRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel46, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(41, 41, 41)
+                        .addComponent(lblReservedRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(36, 36, 36))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlsettingLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(72, 72, 72))
+                    .addGroup(pnlsettingLayout.createSequentialGroup()
+                        .addGroup(pnlsettingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlsettingLayout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel35, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pnlsettingLayout.createSequentialGroup()
+                                .addGap(8, 8, 8)
+                                .addComponent(jSeparator12, javax.swing.GroupLayout.PREFERRED_SIZE, 596, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pnlsettingLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel48, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(15, Short.MAX_VALUE))))
+            .addGroup(pnlsettingLayout.createSequentialGroup()
+                .addGap(415, 415, 415)
+                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlsettingLayout.setVerticalGroup(
             pnlsettingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlsettingLayout.createSequentialGroup()
-                .addGap(122, 122, 122)
-                .addComponent(jLabel9)
-                .addContainerGap(470, Short.MAX_VALUE))
+                .addGap(20, 20, 20)
+                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnlsettingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlsettingLayout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(35, 35, 35)
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33)
+                        .addGroup(pnlsettingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator11, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addGroup(pnlsettingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlsettingLayout.createSequentialGroup()
+                                .addGroup(pnlsettingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(pnlsettingLayout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(date2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel33, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(date1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addComponent(lblLimitedTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(165, 165, 165))
+                            .addGroup(pnlsettingLayout.createSequentialGroup()
+                                .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(30, 30, 30)
+                                .addComponent(jButton10)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(pnlsettingLayout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addGroup(pnlsettingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(pnlsettingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel46, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblReservedRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pnlsettingLayout.createSequentialGroup()
+                                .addComponent(jLabel35)
+                                .addGap(43, 43, 43)
+                                .addGroup(pnlsettingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(lblTotalRoom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel36, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE))))
+                        .addGap(48, 48, 48)
+                        .addComponent(jSeparator12, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(35, 35, 35)
+                        .addComponent(jLabel48, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
+            .addGroup(pnlsettingLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator3))
         );
 
         pnlRoomType.setBackground(new java.awt.Color(0, 102, 102));
@@ -810,6 +1062,12 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
+        jButton9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton9MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlRoomTypeLayout = new javax.swing.GroupLayout(pnlRoomType);
         pnlRoomType.setLayout(pnlRoomTypeLayout);
         pnlRoomTypeLayout.setHorizontalGroup(
@@ -817,12 +1075,22 @@ public class Home extends javax.swing.JFrame {
             .addGroup(pnlRoomTypeLayout.createSequentialGroup()
                 .addGroup(pnlRoomTypeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlRoomTypeLayout.createSequentialGroup()
-                        .addGap(334, 334, 334)
+                        .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(234, 234, 234)
                         .addComponent(jLabel27))
+                    .addGroup(pnlRoomTypeLayout.createSequentialGroup()
+                        .addGap(460, 460, 460)
+                        .addComponent(btnTypeUpdat, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31)
+                        .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
+                        .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlRoomTypeLayout.createSequentialGroup()
                         .addGap(23, 23, 23)
                         .addGroup(pnlRoomTypeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(pnlRoomTypeLayout.createSequentialGroup()
+                                .addGap(219, 219, 219)
+                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(pnlRoomTypeLayout.createSequentialGroup()
                                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(59, 59, 59)
@@ -832,21 +1100,16 @@ public class Home extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addGroup(pnlRoomTypeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtpnlRMtype, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(pnlRoomTypeLayout.createSequentialGroup()
-                        .addGap(460, 460, 460)
-                        .addComponent(btnTypeUpdat, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(31, 31, 31)
-                        .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
-                        .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(272, Short.MAX_VALUE))
+                                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(292, Short.MAX_VALUE))
         );
         pnlRoomTypeLayout.setVerticalGroup(
             pnlRoomTypeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlRoomTypeLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnlRoomTypeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel27, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE))
                 .addGap(31, 31, 31)
                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -869,13 +1132,10 @@ public class Home extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlRoomTypeLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(136, Short.MAX_VALUE))
+                .addContainerGap(158, Short.MAX_VALUE))
         );
 
         pnlemployee.setBackground(new java.awt.Color(23, 31, 44));
-
-        jLabel37.setForeground(new java.awt.Color(0, 204, 204));
-        jLabel37.setText("USER-");
 
         jLabel38.setBackground(new java.awt.Color(255, 255, 255));
         jLabel38.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 12)); // NOI18N
@@ -909,10 +1169,22 @@ public class Home extends javax.swing.JFrame {
 
         txt_epass.setBackground(new java.awt.Color(23, 31, 44));
         txt_epass.setForeground(new java.awt.Color(255, 255, 255));
-        txt_epass.setBorder(null);
+        txt_epass.setToolTipText("Password");
+        txt_epass.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        txt_epass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_epassActionPerformed(evt);
+            }
+        });
 
         cmb_erole.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 12)); // NOI18N
         cmb_erole.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Manager", "Reception", " " }));
+        cmb_erole.setToolTipText("Role");
+        cmb_erole.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmb_eroleActionPerformed(evt);
+            }
+        });
 
         jLabel43.setBackground(new java.awt.Color(255, 255, 255));
         jLabel43.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 12)); // NOI18N
@@ -926,161 +1198,309 @@ public class Home extends javax.swing.JFrame {
 
         txt_ename.setBackground(new java.awt.Color(23, 31, 44));
         txt_ename.setForeground(new java.awt.Color(255, 255, 255));
-        txt_ename.setBorder(null);
+        txt_ename.setToolTipText("Name");
+        txt_ename.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        txt_ename.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_enameActionPerformed(evt);
+            }
+        });
 
         txt_ephoneno.setBackground(new java.awt.Color(23, 31, 44));
         txt_ephoneno.setForeground(new java.awt.Color(255, 255, 255));
-        txt_ephoneno.setBorder(null);
+        txt_ephoneno.setToolTipText("Telephone Number");
+        txt_ephoneno.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        txt_ephoneno.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_ephonenoKeyTyped(evt);
+            }
+        });
 
         txt_eidno.setBackground(new java.awt.Color(23, 31, 44));
         txt_eidno.setForeground(new java.awt.Color(255, 255, 255));
-        txt_eidno.setBorder(null);
+        txt_eidno.setToolTipText("Identity Card Number");
+        txt_eidno.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
 
         txt_eemail.setBackground(new java.awt.Color(23, 31, 44));
         txt_eemail.setForeground(new java.awt.Color(255, 255, 255));
-        txt_eemail.setBorder(null);
-
-        txt_euserid.setBackground(new java.awt.Color(23, 31, 44));
-        txt_euserid.setForeground(new java.awt.Color(255, 255, 255));
-        txt_euserid.setBorder(null);
+        txt_eemail.setToolTipText("E-mail");
+        txt_eemail.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        txt_eemail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_eemailActionPerformed(evt);
+            }
+        });
 
         txt_eaddress.setBackground(new java.awt.Color(23, 31, 44));
         txt_eaddress.setForeground(new java.awt.Color(255, 255, 255));
-        txt_eaddress.setBorder(null);
+        txt_eaddress.setToolTipText("Address");
+        txt_eaddress.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
 
         btn_close.setBackground(new java.awt.Color(88, 200, 197));
         btn_close.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
         btn_close.setText("Close");
+        btn_close.setToolTipText("Close");
         btn_close.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_closeActionPerformed(evt);
             }
         });
 
-        btn_AddEmp.setBackground(new java.awt.Color(88, 200, 197));
-        btn_AddEmp.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
-        btn_AddEmp.setText("ADD");
-        btn_AddEmp.addActionListener(new java.awt.event.ActionListener() {
+        btn_InsertEmp.setBackground(new java.awt.Color(88, 200, 197));
+        btn_InsertEmp.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
+        btn_InsertEmp.setText("Add");
+        btn_InsertEmp.setToolTipText("Add Employee Details");
+        btn_InsertEmp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_AddEmpActionPerformed(evt);
+                btn_InsertEmpActionPerformed(evt);
             }
         });
+
+        tbl_user.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Name", "ID No", "Address", "Phone Number", "E-Mail", "UserID", "Role"
+            }
+        ));
+        tbl_user.setToolTipText("Empolyee Details");
+        tbl_user.setEnabled(false);
+        tbl_user.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_userMouseClicked(evt);
+            }
+        });
+        jScrollPane8.setViewportView(tbl_user);
+
+        btn_MainInsert.setBackground(new java.awt.Color(21, 169, 169));
+        btn_MainInsert.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
+        btn_MainInsert.setText("Insert Employee");
+        btn_MainInsert.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_MainInsertActionPerformed(evt);
+            }
+        });
+
+        lbl_ChangePass.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_ChangePass.setText("Change Password");
+        lbl_ChangePass.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                lbl_ChangePassMouseMoved(evt);
+            }
+        });
+        lbl_ChangePass.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbl_ChangePassMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lbl_ChangePassMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lbl_ChangePassMouseExited(evt);
+            }
+        });
+
+        btn_MainUpdate.setBackground(new java.awt.Color(153, 153, 153));
+        btn_MainUpdate.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
+        btn_MainUpdate.setText("Update Employee");
+        btn_MainUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_MainUpdateActionPerformed(evt);
+            }
+        });
+
+        btn_MainDelete.setBackground(new java.awt.Color(21, 169, 169));
+        btn_MainDelete.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
+        btn_MainDelete.setText("Delete Employee");
+        btn_MainDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_MainDeleteActionPerformed(evt);
+            }
+        });
+
+        btn_UpdateEmp.setBackground(new java.awt.Color(88, 200, 197));
+        btn_UpdateEmp.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
+        btn_UpdateEmp.setText("Update");
+        btn_UpdateEmp.setToolTipText("Update Employee Details");
+        btn_UpdateEmp.setEnabled(false);
+        btn_UpdateEmp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_UpdateEmpActionPerformed(evt);
+            }
+        });
+
+        btn_DeleteEmp.setBackground(new java.awt.Color(88, 200, 197));
+        btn_DeleteEmp.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
+        btn_DeleteEmp.setText("Delete");
+        btn_DeleteEmp.setToolTipText("Delete Employee Details");
+        btn_DeleteEmp.setEnabled(false);
+        btn_DeleteEmp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_DeleteEmpActionPerformed(evt);
+            }
+        });
+
+        txt_euserId.setEditable(false);
+        txt_euserId.setBackground(new java.awt.Color(23, 31, 44));
+        txt_euserId.setForeground(new java.awt.Color(255, 255, 255));
+        txt_euserId.setToolTipText("Autogenarated UserID");
+        txt_euserId.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        txt_euserId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_euserIdActionPerformed(evt);
+            }
+        });
+
+        btn_Refresh.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
+        btn_Refresh.setText("Table Refresh");
+        btn_Refresh.setToolTipText("Refresh the Table");
+        btn_Refresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_RefreshActionPerformed(evt);
+            }
+        });
+
+        btn_Clear.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
+        btn_Clear.setText("Clear");
+        btn_Clear.setToolTipText("Clear TextBoxs");
+        btn_Clear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_ClearActionPerformed(evt);
+            }
+        });
+
+        jLabel31.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 36)); // NOI18N
+        jLabel31.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel31.setText("MANAGE EMPLOYEE");
 
         javax.swing.GroupLayout pnlemployeeLayout = new javax.swing.GroupLayout(pnlemployee);
         pnlemployee.setLayout(pnlemployeeLayout);
         pnlemployeeLayout.setHorizontalGroup(
             pnlemployeeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlemployeeLayout.createSequentialGroup()
-                .addGap(57, 57, 57)
-                .addGroup(pnlemployeeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jSeparator5, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator6, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator7, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator8, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator10, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlemployeeLayout.createSequentialGroup()
-                        .addGroup(pnlemployeeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel39, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel40, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel41, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel42, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
-                            .addComponent(jLabel44, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(276, 276, 276))
-                    .addComponent(txt_ephoneno, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txt_eemail, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txt_eidno, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txt_ename, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txt_eaddress, javax.swing.GroupLayout.Alignment.LEADING))
-                .addGap(132, 132, 132)
                 .addGroup(pnlemployeeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlemployeeLayout.createSequentialGroup()
-                        .addComponent(jLabel38, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(368, 368, 368))
-                    .addGroup(pnlemployeeLayout.createSequentialGroup()
-                        .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(286, 286, 286))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlemployeeLayout.createSequentialGroup()
+                        .addGroup(pnlemployeeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlemployeeLayout.createSequentialGroup()
+                                .addGap(90, 90, 90)
+                                .addGroup(pnlemployeeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(pnlemployeeLayout.createSequentialGroup()
+                                        .addComponent(jLabel44, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGap(252, 252, 252))
+                                    .addGroup(pnlemployeeLayout.createSequentialGroup()
+                                        .addComponent(jLabel40, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGap(126, 126, 126))
+                                    .addGroup(pnlemployeeLayout.createSequentialGroup()
+                                        .addComponent(jLabel41, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGap(126, 126, 126))
+                                    .addComponent(txt_eidno)
+                                    .addComponent(txt_ename)
+                                    .addComponent(jLabel39, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txt_eemail)
+                                    .addComponent(txt_ephoneno)
+                                    .addComponent(txt_eaddress)
+                                    .addComponent(jLabel42, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(105, 105, 105))
+                            .addGroup(pnlemployeeLayout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addGroup(pnlemployeeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel31)
+                                    .addGroup(pnlemployeeLayout.createSequentialGroup()
+                                        .addComponent(btn_Refresh, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(35, 35, 35)
+                                        .addComponent(btn_Clear, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGroup(pnlemployeeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(pnlemployeeLayout.createSequentialGroup()
-                                .addGap(0, 117, Short.MAX_VALUE)
-                                .addComponent(jLabel37)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txt_euserid, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jSeparator4))
-                        .addGap(102, 102, 102))
+                                .addComponent(btn_InsertEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btn_UpdateEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btn_DeleteEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(60, 60, 60)
+                                .addComponent(btn_close, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pnlemployeeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(cmb_erole, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel38, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel43, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(pnlemployeeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(txt_euserId, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lbl_ChangePass)
+                                    .addComponent(txt_epass, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(pnlemployeeLayout.createSequentialGroup()
+                                    .addComponent(btn_MainInsert, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(btn_MainUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(btn_MainDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(pnlemployeeLayout.createSequentialGroup()
-                        .addComponent(jLabel43, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlemployeeLayout.createSequentialGroup()
-                        .addGroup(pnlemployeeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(pnlemployeeLayout.createSequentialGroup()
-                                .addComponent(btn_AddEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btn_close, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(cmb_erole, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txt_epass, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator9, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addGap(102, 102, 102))))
+                        .addContainerGap()
+                        .addComponent(jScrollPane8)))
+                .addContainerGap())
         );
         pnlemployeeLayout.setVerticalGroup(
             pnlemployeeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlemployeeLayout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addGroup(pnlemployeeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pnlemployeeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btn_MainInsert, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_MainUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_MainDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlemployeeLayout.createSequentialGroup()
+                        .addComponent(jLabel31)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel39, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(pnlemployeeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlemployeeLayout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(jLabel39, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(pnlemployeeLayout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addComponent(jLabel38)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt_euserId, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(11, 11, 11)
+                        .addComponent(jLabel16)
+                        .addGap(5, 5, 5)
+                        .addComponent(txt_epass, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lbl_ChangePass)
+                        .addGap(11, 11, 11)
+                        .addComponent(jLabel43)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cmb_erole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(62, 62, 62)
+                        .addGroup(pnlemployeeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btn_close)
+                            .addComponent(btn_InsertEmp)
+                            .addComponent(btn_UpdateEmp)
+                            .addComponent(btn_DeleteEmp)))
+                    .addGroup(pnlemployeeLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txt_ename, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator5)
-                        .addGap(14, 14, 14)
-                        .addComponent(jLabel40, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(5, 5, 5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel40, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
                         .addComponent(txt_eidno, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel41, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel41, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txt_eaddress, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel42, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel42)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txt_ephoneno, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(5, 5, 5)
-                        .addComponent(jSeparator8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel44)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel44, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txt_eemail, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator10))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlemployeeLayout.createSequentialGroup()
-                        .addGap(72, 72, 72)
-                        .addComponent(jLabel38, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(pnlemployeeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txt_euserid, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel37))
-                        .addGap(4, 4, 4)
-                        .addComponent(jSeparator4, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt_epass, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator9, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
-                        .addGap(34, 34, 34)
-                        .addComponent(jLabel43, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cmb_erole, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
-                        .addGap(54, 54, 54)
-                        .addGroup(pnlemployeeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btn_AddEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btn_close, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(44, 44, 44))
+                            .addComponent(btn_Refresh)
+                            .addComponent(btn_Clear))))
+                .addGap(15, 15, 15)
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jLayeredPane1.setLayer(pnlhome, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -1122,18 +1542,18 @@ public class Home extends javax.swing.JFrame {
                     .addGap(0, 0, 0)))
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                    .addGap(0, 0, 0)
-                    .addComponent(pnlemployee, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGap(0, 0, 0)))
-            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jLayeredPane1Layout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(pnlhome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addContainerGap()))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addGap(12, 12, 12)
+                    .addComponent(pnlemployee, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGap(13, 13, 13)))
         );
         jLayeredPane1Layout.setVerticalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 621, Short.MAX_VALUE)
+            .addGap(0, 717, Short.MAX_VALUE)
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jLayeredPane1Layout.createSequentialGroup()
                     .addGap(0, 0, 0)
@@ -1160,14 +1580,14 @@ public class Home extends javax.swing.JFrame {
                     .addGap(0, 0, 0)))
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                    .addGap(0, 0, 0)
-                    .addComponent(pnlemployee, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGap(0, 0, 0)))
-            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jLayeredPane1Layout.createSequentialGroup()
                     .addGap(23, 23, 23)
                     .addComponent(pnlhome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGap(23, 23, 23)))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addGap(56, 56, 56)
+                    .addComponent(pnlemployee, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGap(56, 56, 56)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -1283,6 +1703,38 @@ public class Home extends javax.swing.JFrame {
         pnlmanager.setVisible(false);
         pnlemployee.setVisible(false);
         
+        ArrayList<Receipt> tbl = new ArrayList<Receipt>();
+        DefaultTableModel mdl = (DefaultTableModel) tblIncome.getModel();
+        SQLReport rtpt= new SQLReport();
+        tbl=rtpt.getTable();
+        mdl.setRowCount(0);
+        for(int i=0;i<tbl.size();i++){
+            mdl.addRow(new Object[] { tbl.get(i).getRecNo(),tbl.get(i).getResID(),tbl.get(i).getDate(),tbl.get(i).getTotal()});
+        }
+        
+        lblTotal.setText(Double.toString(rtpt.total()));
+        
+        int reservedRooms=0,emptyRooms=0;
+        
+        DefaultTableModel rmmdl = (DefaultTableModel) tblRoomReport.getModel();
+        
+        SQLQryM room = new SQLQryM();
+        ArrayList<RoomMap> roomtbl = new ArrayList<RoomMap>();
+        roomtbl= room.InsertRoomTb();
+        rmmdl.setRowCount(0);
+        for(int n=0;n<roomtbl.size();n++){
+           rmmdl.addRow(new Object [] {roomtbl.get(n).getRoomID(),roomtbl.get(n).getRoomType(),roomtbl.get(n).getRates(),roomtbl.get(n).getAvailability()});
+            if(roomtbl.get(n).getAvailability()==1){
+                reservedRooms +=1;
+            }
+            else{
+                emptyRooms +=1;
+            }
+        }
+        
+        lblTotalRoom.setText(Integer.toString(reservedRooms+emptyRooms));
+        lblReservedRoom.setText(Integer.toString(reservedRooms));
+        
     }//GEN-LAST:event_jLabel6MouseClicked
 
     private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
@@ -1308,7 +1760,7 @@ public class Home extends javax.swing.JFrame {
     private void btnGenerateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerateActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnGenerateActionPerformed
-
+///////////////////////Generate a receipt for a customer////////////////////////////////////////////////////////////
     private void btnGenerateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGenerateMouseClicked
         String s;     //assign textboxvalue to the s string
         double sum= 0 ;   //variable that is needed for calculating room total
@@ -1321,12 +1773,20 @@ public class Home extends javax.swing.JFrame {
         SQLQuery retreiveC = new SQLQuery();//In Recept package SQLQuery class it has all the sql queries as methods which are used in the Receipt panel 
         Home_Receipt_Control control= new Home_Receipt_Control();//In Control package one class for the receipt panel it has all the general methods
        
+  ///////////////////////////////////////////////////////////// ////////////////       
+        write_read read = new write_read();
+        
+        Tables.setRates(Double.parseDouble(read.read()));
+ //////////////////////////////////////////////////////////////////////////////  
         
          s=txtPersonID.getText();
         //validate the entering Identity Number of the customer
         if(!(valID.validate(s))){
             txtPersonID.setText("");
         }
+        
+        txtPersonID.setText("");
+        lblctmrID.setText(s);
         
         
       
@@ -1430,7 +1890,8 @@ public class Home extends javax.swing.JFrame {
     private void txtPersonIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPersonIDActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPersonIDActionPerformed
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////Clear the receipt panel/////////////////////////////////////////////////////////////
     private void btnClearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnClearMouseClicked
        DefaultTableModel modeltable=(DefaultTableModel) ResjTable.getModel();
        modeltable.setRowCount(0);
@@ -1447,7 +1908,7 @@ public class Home extends javax.swing.JFrame {
        lblrmTotal.setText("");
        lblFinalbill.setText("");
     }//GEN-LAST:event_btnClearMouseClicked
-
+//////////////////////////Load the Manager panel////////////////////////////////////////////////
     private void restMngerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_restMngerMouseClicked
         pnlbooking.setVisible(false);
         pnlhome.setVisible(false);
@@ -1478,18 +1939,26 @@ public class Home extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_restMngerMousePressed
 
+    ///////////////////////////////Insert receipt data in to the table in receipt panel////////////////////////////////////
     private void btninsrtDBMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btninsrtDBMouseClicked
        String ResID= textResID.getText();
        int days = Integer.parseInt(lbldayCount.getText());
        double total=Double.parseDouble(lblFinalbill.getText());
-       
+       DefaultTableModel model = (DefaultTableModel) ResjTable.getModel();
+       int tblrec=model.getRowCount();
        SQLQuery insertReceipt = new SQLQuery();
        
-       if(insertReceipt.inserttoReceipt(ResID,days, total)==1){
+       if(insertReceipt.inserttoReceipt(ResID,days,tblrec ,total)==1){
            JOptionPane.showMessageDialog(null, "Receipt data are inserted into the company");
        }
+       
+      String ID= lblctmrID.getText();
+      insertReceipt.DeleteCustomer(ID);
+       
+       
     }//GEN-LAST:event_btninsrtDBMouseClicked
-
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////Get values from Room Map table to text boxes in manager panel/////////////////////////////////////
     private void tblRMMapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblRMMapMouseClicked
         //create tablemodel object
         DefaultTableModel tbltotxt = (DefaultTableModel) tblRMMap.getModel();
@@ -1500,7 +1969,7 @@ public class Home extends javax.swing.JFrame {
             txtRates.setText((tbltotxt.getValueAt(tblRMMap.getSelectedRow(),2)).toString());
             
     }//GEN-LAST:event_tblRMMapMouseClicked
-
+//////////////////////////Update the RoomMap Table///////////////////////////////////////////////////////////////////////
     private void btnUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUpdateMouseClicked
         // TODO add your handling code here:
         //create the update call and update the database
@@ -1519,7 +1988,8 @@ public class Home extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_btnUpdateMouseClicked
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////Load/refresh the RoomMap Table in Manager table//////////////////////////////////////////////////////
     private void btnRefreshMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRefreshMouseClicked
         
           //create a arraylist to retreive all the table details
@@ -1542,11 +2012,11 @@ public class Home extends javax.swing.JFrame {
             for(int i=0;i<AllRmDetails.size();i++){
                 
               
-               modelRMMd.addRow(new Object[] {AllRmDetails.get(i).getRoomID(),AllRmDetails.get(i).getRoomType(),AllRmDetails.get(i).getRates()});
+               modelRMMd.addRow(new Object[] {AllRmDetails.get(i).getRoomID(),AllRmDetails.get(i).getRoomType(),AllRmDetails.get(i).getRates(),AllRmDetails.get(i).getAvailability()});
             }
             
     }//GEN-LAST:event_btnRefreshMouseClicked
-
+///////////////////////////////panel Handling//////////////////////////////////////////////////////////////////////////
     private void btnroomTypeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnroomTypeMouseClicked
         // TODO add your handling code here:
          pnlbooking.setVisible(false);
@@ -1557,7 +2027,8 @@ public class Home extends javax.swing.JFrame {
         pnlRoomType.setVisible(true);
         pnlemployee.setVisible(false);
     }//GEN-LAST:event_btnroomTypeMouseClicked
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////Load the RoomType Table in RoomType panel////////////////////////////////////////////
     private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
         // TODO add your handling code here:
           //create a arraylist to retreive all the table details
@@ -1584,7 +2055,7 @@ public class Home extends javax.swing.JFrame {
             }
 
     }//GEN-LAST:event_jButton5MouseClicked
-
+////////////////////////////Get values from RoomType Table to the text Boxeses////////////////////////////////
     private void tblRoomTypeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblRoomTypeMouseClicked
         // TODO add your handling code here:
         
@@ -1594,7 +2065,8 @@ public class Home extends javax.swing.JFrame {
             txtpnlRMtype.setText((tbltotxt.getValueAt(tblRoomType.getSelectedRow(),0)).toString());
             txtRoomDetails.setText((tbltotxt.getValueAt(tblRoomType.getSelectedRow(),1)).toString());
     }//GEN-LAST:event_tblRoomTypeMouseClicked
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////Update the RoomType Table//////////////////////////////////////////////////
     private void btnTypeUpdatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTypeUpdatMouseClicked
         // TODO add your handling code here:
          SQLQryM updt = new SQLQryM();
@@ -1609,7 +2081,7 @@ public class Home extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_btnTypeUpdatMouseClicked
-
+///////////////////////////////////////////////////////Insert data in to  the RoomType Table////////////////////////
     private void jButton8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton8MouseClicked
         // TODO add your handling code here:
         SQLQryM insrt = new SQLQryM();
@@ -1619,7 +2091,7 @@ public class Home extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "New Record was succesfully recorded");
         }
     }//GEN-LAST:event_jButton8MouseClicked
-
+/////////////////////////////Insert new record in to the RoomMap table//////////////////
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         // TODO add your handling code here:
         SQLQryM insrt = new SQLQryM();
@@ -1637,7 +2109,8 @@ public class Home extends javax.swing.JFrame {
        
         }
     }//GEN-LAST:event_jButton2MouseClicked
-
+/////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////Update the table rate file////////////////////////
     private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
         // TODO add your handling code here:
         Double d = Double.parseDouble(txtTableRates.getText());
@@ -1654,7 +2127,7 @@ public class Home extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, ex);
         }
     }//GEN-LAST:event_jButton4MouseClicked
-
+//////////////Tried to encrypt the rate text file//////////////////////////////////
     private void jButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseClicked
         // TODO add your handling code here:
         /*     String enc_rate;
@@ -1676,7 +2149,7 @@ public class Home extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, e);
         }*/
     }//GEN-LAST:event_jButton6MouseClicked
-
+/////////////////////////////////////Clear all texts in RoomType panel//////////
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
         // TODO add your handling code here:
         txtRoomNo.setText("");
@@ -1684,25 +2157,7 @@ public class Home extends javax.swing.JFrame {
         txtRates.setText("");
     }//GEN-LAST:event_jButton3MouseClicked
 
-    private void btn_closeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_closeActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_btn_closeActionPerformed
-
-    private void btn_AddEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AddEmpActionPerformed
-
-        Person p = new Person(txt_eidno.getText(),txt_ename.getText(),txt_eaddress.getText(),Integer.parseInt(txt_ephoneno.getText()),txt_eemail.getText());
-
-        User u = new User();
-        u.setUserId(txt_euserid.getText());
-        u.setIdNo(txt_eidno.getText());
-        u.setPassword(String.valueOf(txt_epass.getPassword()));
-        u.setRole((String) cmb_erole.getSelectedItem());
-
-        //JOptionPane.showMessageDialog(null,txt_eidno.getText());
-        JOptionPane.showMessageDialog(null,p.setPDetails());
-        JOptionPane.showMessageDialog(null,u.SetUDetails());
-    }//GEN-LAST:event_btn_AddEmpActionPerformed
-
+///////////////////////////When form is shown hide all other panels except home////////////
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         // TODO add your handling code here:
         pnlbooking.setVisible(false);
@@ -1712,8 +2167,266 @@ public class Home extends javax.swing.JFrame {
         pnlmanager.setVisible(false);
         pnlRoomType.setVisible(false);
         pnlemployee.setVisible(false);
+        
+          
+        write_read read = new write_read();
+        
+        Tables.setRates(Double.parseDouble(read.read()));
+        //txtTableRates.setText(read.read());
+       // JOptionPane.showMessageDialog(null, Tables.getRates());
+    
+        
+        txtTableRates.setText(String.valueOf(Tables.getRates()) );
+        
     }//GEN-LAST:event_formComponentShown
+//////////////////Exit in to the manager panel///////////////////////////////////////
+    private void jButton9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton9MouseClicked
+        // TODO add your handling code here:
+        pnlbooking.setVisible(false);
+        pnlhome.setVisible(false);
+        pnlresturent.setVisible(false);
+        pnlsetting.setVisible(false);
+        pnlmanager.setVisible(true);
+        pnlRoomType.setVisible(false);
+        pnlemployee.setVisible(false);
+    }//GEN-LAST:event_jButton9MouseClicked
 
+    
+    /////////////////////////Delete record button in manager panel//////////////////////
+    private void btnDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteMouseClicked
+      JFrame frame = new JFrame("Swing Tester");
+      frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      SQLQryM delete = new SQLQryM();
+      
+      frame.setSize(560, 200);      
+      frame.setLocationRelativeTo(null);  
+      frame.setVisible(false);
+        
+        int result = JOptionPane.showConfirmDialog(frame,"Sure? You want to exit?", "Swing Tester",
+               JOptionPane.YES_NO_OPTION,
+               JOptionPane.QUESTION_MESSAGE);
+        
+        
+            if(result == JOptionPane.YES_OPTION){
+               delete.DeleteRoom(txtRoomNo.getText());
+            }
+           
+        
+    }//GEN-LAST:event_btnDeleteMouseClicked
+///////////////////////////////Report panel calculate button/////////////////////////////
+    private void jButton10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton10MouseClicked
+        // TODO add your handling code here:
+        
+        //SimpleDateFormat dat = new SimpleDateFormat("yyyy-mm-dd");
+        Date d1 = date1.getDate();
+        Date d2 = date2.getDate();
+        //JOptionPane.showMessageDialog(null, "1");
+        Double total=0.00;
+        
+         ArrayList<Receipt> datalist= new ArrayList<Receipt>();
+         SQLReport datacomp = new SQLReport();
+        // JOptionPane.showMessageDialog(null, "2");
+         datalist=datacomp.getTable();
+          
+         
+         for(int i=0;i<datalist.size();i++){
+             if((d1.before(datalist.get(i).getDate()))&&(d2.after(datalist.get(i).getDate()))){
+                 
+                 total +=datalist.get(i).getTotal();
+                 
+             }
+            
+         }
+         lblLimitedTotal.setText(Double.toString(total));
+        
+    }//GEN-LAST:event_jButton10MouseClicked
+
+    private void txt_epassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_epassActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_epassActionPerformed
+
+    private void cmb_eroleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_eroleActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmb_eroleActionPerformed
+
+    private void txt_enameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_enameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_enameActionPerformed
+
+    private void txt_ephonenoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_ephonenoKeyTyped
+        User_Validation uv = new User_Validation();
+        uv.CheckIsNum(evt);
+    }//GEN-LAST:event_txt_ephonenoKeyTyped
+
+    private void txt_eemailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_eemailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_eemailActionPerformed
+
+    private void btn_closeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_closeActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btn_closeActionPerformed
+
+     private void txtClear(){
+        txt_ename.setText("");
+        txt_eaddress.setText("");
+        txt_eidno.setText("");
+        txt_ephoneno.setText("");
+        txt_eemail.setText("");
+    }
+    private void btn_InsertEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_InsertEmpActionPerformed
+
+        if(txt_eidno.getText().equals("")||txt_ename.getText().equals("")||txt_eaddress.getText().equals("")||
+            txt_ephoneno.getText().equals("")||txt_eemail.getText().equals("")||txt_euserId.getText().equals("")||txt_epass.getPassword().equals("")){
+
+            JOptionPane.showMessageDialog(null, "Empty Value!" , " WARNING", JOptionPane.WARNING_MESSAGE);
+        }else{
+            Person p = new Person(txt_eidno.getText(),txt_ename.getText(),txt_eaddress.getText(),Integer.parseInt(txt_ephoneno.getText()),txt_eemail.getText());
+
+            User u = new User();
+            u.setUserId(txt_euserId.getText());
+            u.setIdNo(txt_eidno.getText());
+            u.setPassword(String.valueOf(txt_epass.getPassword()));
+            u.setRole((String) cmb_erole.getSelectedItem());
+            p.setPDetails();
+            u.SetUDetails();
+            loadTable();
+            txtClear();
+
+        }
+
+    }//GEN-LAST:event_btn_InsertEmpActionPerformed
+
+     private boolean InsertionActive = true;
+    private void tbl_userMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_userMouseClicked
+        
+        if(InsertionActive == false){
+
+            int number = tbl_user.getSelectedRow();
+
+            txt_ename.setText(tbl_user.getValueAt(number, 0).toString());
+            txt_eidno.setText(tbl_user.getValueAt(number, 1).toString());
+            txt_eaddress.setText(tbl_user.getValueAt(number, 2).toString());
+            txt_ephoneno.setText(tbl_user.getValueAt(number, 3).toString());
+            txt_eemail.setText(tbl_user.getValueAt(number, 4).toString());
+            txt_euserId.setText(tbl_user.getValueAt(number, 5).toString());
+            String Role = tbl_user.getValueAt(number, 6).toString();
+            if(Role.equals("Manager")){
+                cmb_erole.setSelectedIndex(0);
+            }
+            if(Role.equals("Reception")){
+                cmb_erole.setSelectedIndex(1);
+            }
+        }
+    }//GEN-LAST:event_tbl_userMouseClicked
+
+    private void btn_MainInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_MainInsertActionPerformed
+        btn_InsertEmp.setEnabled(true);
+        btn_UpdateEmp.setEnabled(false);
+        btn_DeleteEmp.setEnabled(false);
+        txt_epass.setEditable(true);
+        txt_eidno.setEditable(true);
+        btn_MainInsert.setBackground(new Color(21,169,169));
+        btn_MainUpdate.setBackground(new Color(153,153,153));
+        btn_MainDelete.setBackground(new Color(153,153,153));
+
+        Query_Person qp = new Query_Person();
+        qp.ID();
+        txt_euserId.setText("USER-"+qp.getAutoGenUserId());
+        InsertionActive = true;
+        tbl_user.setEnabled(false);
+        txtClear();
+    }//GEN-LAST:event_btn_MainInsertActionPerformed
+
+    private void lbl_ChangePassMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_ChangePassMouseMoved
+
+    }//GEN-LAST:event_lbl_ChangePassMouseMoved
+
+    private void lbl_ChangePassMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_ChangePassMouseClicked
+        ChangePass cp = new ChangePass();
+        cp.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_lbl_ChangePassMouseClicked
+
+    private void lbl_ChangePassMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_ChangePassMouseEntered
+        lbl_ChangePass.setForeground(Color.red);
+    }//GEN-LAST:event_lbl_ChangePassMouseEntered
+
+    private void lbl_ChangePassMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_ChangePassMouseExited
+        lbl_ChangePass.setForeground(Color.white);        // TODO add your handling code here:
+    }//GEN-LAST:event_lbl_ChangePassMouseExited
+
+    private void btn_MainUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_MainUpdateActionPerformed
+        btn_InsertEmp.setEnabled(false);
+        btn_UpdateEmp.setEnabled(true);
+        btn_DeleteEmp.setEnabled(false);
+        txt_epass.setEditable(false);
+        txt_eidno.setEditable(false);
+
+        btn_MainInsert.setBackground(new Color(153,153,153));
+        btn_MainUpdate.setBackground(new Color(21,169,169));
+        btn_MainDelete.setBackground(new Color(153,153,153));
+
+        InsertionActive = false;
+        tbl_user.setEnabled(true);
+        txtClear();
+
+    }//GEN-LAST:event_btn_MainUpdateActionPerformed
+
+    private void btn_MainDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_MainDeleteActionPerformed
+        btn_InsertEmp.setEnabled(false);
+        btn_UpdateEmp.setEnabled(false);
+        btn_DeleteEmp.setEnabled(true);
+        txt_epass.setEditable(false);
+        txt_ename.setEditable(false);
+        txt_eidno.setEditable(false);
+        txt_eaddress.setEditable(false);
+        txt_ephoneno.setEditable(false);
+        txt_eemail.setEditable(false);
+        cmb_erole.setEditable(false);
+
+        btn_MainInsert.setBackground(new Color(153,153,153));
+        btn_MainUpdate.setBackground(new Color(153,153,153));
+        btn_MainDelete.setBackground(new Color(21,169,169));
+
+        InsertionActive = false;
+        tbl_user.setEnabled(true);
+        txtClear();
+    }//GEN-LAST:event_btn_MainDeleteActionPerformed
+
+    private void btn_UpdateEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_UpdateEmpActionPerformed
+        Person p1 = new Person(txt_eidno.getText(),txt_ename.getText(),txt_eaddress.getText(),Integer.parseInt(txt_ephoneno.getText()),txt_eemail.getText());
+
+        User u1 = new User();
+        u1.setIdNo(txt_eidno.getText());
+        u1.setUserId(txt_euserId.getText());
+        u1.setRole((String) cmb_erole.getSelectedItem());
+
+        p1.UpdatePDetails();
+        u1.UpdateUDetails();
+        loadTable();
+        txtClear();
+    }//GEN-LAST:event_btn_UpdateEmpActionPerformed
+
+    private void btn_DeleteEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_DeleteEmpActionPerformed
+        Person p1 = new Person();
+        p1.setIdNo(txt_eidno.getText());
+        p1.DeletePDetails();
+        loadTable();
+        txtClear();
+    }//GEN-LAST:event_btn_DeleteEmpActionPerformed
+
+    private void txt_euserIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_euserIdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_euserIdActionPerformed
+
+    private void btn_RefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_RefreshActionPerformed
+        loadTable();        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_RefreshActionPerformed
+
+    private void btn_ClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ClearActionPerformed
+        txtClear();
+    }//GEN-LAST:event_btn_ClearActionPerformed
+//////////////////////////////////////////////////////////////////////////////////////////
     /**
      * @param args the command line arguments
      */
@@ -1751,23 +2464,35 @@ public class Home extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Banner;
+    private javax.swing.JPanel Employeebtn1;
     private javax.swing.JPanel Receiptbtn;
     private javax.swing.JTable ResjTable;
     private javax.swing.JTable TblRoom;
     private javax.swing.JPanel bookingbtn;
     private javax.swing.JButton btnClear;
+    private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnGenerate;
     private javax.swing.JButton btnRefresh;
     private javax.swing.JButton btnTypeUpdat;
     private javax.swing.JButton btnUpdate;
-    private javax.swing.JButton btn_AddEmp;
+    private javax.swing.JButton btn_Clear;
+    private javax.swing.JButton btn_DeleteEmp;
+    private javax.swing.JButton btn_InsertEmp;
+    private javax.swing.JButton btn_MainDelete;
+    private javax.swing.JButton btn_MainInsert;
+    private javax.swing.JButton btn_MainUpdate;
+    private javax.swing.JButton btn_Refresh;
+    private javax.swing.JButton btn_UpdateEmp;
     private javax.swing.JButton btn_close;
     private javax.swing.JButton btninsrtDB;
     private javax.swing.JButton btnroomType;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox cmb_erole;
+    private com.toedter.calendar.JDateChooser date1;
+    private com.toedter.calendar.JDateChooser date2;
     private javax.swing.JPanel homebtn;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -1775,6 +2500,8 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -1795,8 +2522,14 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
@@ -1805,7 +2538,8 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel46;
+    private javax.swing.JLabel jLabel48;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -1816,22 +2550,29 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator10;
+    private javax.swing.JSeparator jSeparator11;
+    private javax.swing.JSeparator jSeparator12;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JSeparator jSeparator5;
-    private javax.swing.JSeparator jSeparator6;
-    private javax.swing.JSeparator jSeparator7;
-    private javax.swing.JSeparator jSeparator8;
-    private javax.swing.JSeparator jSeparator9;
+    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JLabel jlblRate;
     private javax.swing.JLabel lblCheckIn;
     private javax.swing.JLabel lblCheckOut;
     private javax.swing.JLabel lblFinalbill;
+    private javax.swing.JLabel lblLimitedTotal;
+    private javax.swing.JLabel lblReservedRoom;
     private javax.swing.JLabel lblTableTotal;
+    private javax.swing.JLabel lblTotal;
+    private javax.swing.JLabel lblTotalRoom;
+    private javax.swing.JLabel lbl_ChangePass;
     private javax.swing.JLabel lbl_user;
+    private javax.swing.JLabel lbl_userRole;
+    private javax.swing.JLabel lbl_userid;
     private javax.swing.JLabel lbl_username;
+    private javax.swing.JLabel lblctmrID;
     private javax.swing.JLabel lbldayCount;
     private javax.swing.JLabel lblrmTotal;
     private javax.swing.JPanel pnlRoomType;
@@ -1845,10 +2586,12 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel restMnger;
     private javax.swing.JPanel resturantMn;
     private javax.swing.JPanel settingbtn;
-    private javax.swing.JPanel settingbtn1;
     private javax.swing.JPanel sidemanubar;
+    private javax.swing.JTable tblIncome;
     private javax.swing.JTable tblRMMap;
+    private javax.swing.JTable tblRoomReport;
     private javax.swing.JTable tblRoomType;
+    private javax.swing.JTable tbl_user;
     private javax.swing.JTextField textCustomerID;
     private javax.swing.JTextField textResID;
     private javax.swing.JTextField txtPersonID;
@@ -1863,7 +2606,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JTextField txt_ename;
     private javax.swing.JPasswordField txt_epass;
     private javax.swing.JTextField txt_ephoneno;
-    private javax.swing.JTextField txt_euserid;
+    private javax.swing.JTextField txt_euserId;
     private javax.swing.JTextField txtpnlRMtype;
     private javax.swing.JPanel userrole;
     // End of variables declaration//GEN-END:variables

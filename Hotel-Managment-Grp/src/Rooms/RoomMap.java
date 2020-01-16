@@ -13,6 +13,15 @@ public class RoomMap {
     private String RoomID;;
     private String RoomType;
     private Double Rates;
+    private int availability;
+
+    public int getAvailability() {
+        return availability;
+    }
+
+    public void setAvailability(int availability) {
+        this.availability = availability;
+    }
 
     public String getRoomID() {
         return RoomID;
@@ -36,6 +45,13 @@ public class RoomMap {
 
     public void setRates(Double Rates) {
         this.Rates = Rates;
+    }
+
+    public RoomMap(String RoomID, String RoomType, Double Rates, int availability) {
+        this.RoomID = RoomID;
+        this.RoomType = RoomType;
+        this.Rates = Rates;
+        this.availability = availability;
     }
 
     public RoomMap(String RoomID, String RoomType, Double Rates) {

@@ -179,9 +179,9 @@ public class SQLQuery {
           return TableDataList;
    }
    
-   public static int inserttoReceipt(String ResID,int days,double total)
+   public static int inserttoReceipt(String ResID,int days,int table,double total)
    {
-       String insertquery = "INSERT INTO Receipts (ResID,StayedDates,Total) VALUES (?,?,?)";
+       String insertquery = "INSERT INTO Receipts (ResID,StayedDates,TableReservations,Total) VALUES (?,?,?,?)";
        Connection conn=Connect_DB.getConnection();
        
        
@@ -190,7 +190,8 @@ public class SQLQuery {
            PreparedStatement ps=conn.prepareStatement(insertquery);
            ps.setString(1,ResID);
            ps.setInt(2, days);
-           ps.setDouble(3, total);
+           ps.setInt(3,table );
+           ps.setDouble(4, total);
            ps.execute();
           return 1;
        }
@@ -199,6 +200,27 @@ public class SQLQuery {
             return 0;
        }
         
+   }
+   
+   public static int DeleteCustomer(String ID){
+       String del = "Delete From Person where IDNo =?";
+        Connection conn=Connect_DB.getConnection();
+        
+       
+         try{
+           
+           PreparedStatement ps=conn.prepareStatement(del);
+           ps.setString(1,ID);
+         
+           ps.execute();
+          return 1;
+       }
+       catch(Exception e){
+           JOptionPane.showMessageDialog(null, e );
+            return 0;
+       }
+          
+       
    }
 }
    

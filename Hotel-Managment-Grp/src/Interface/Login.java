@@ -17,6 +17,7 @@ import java.sql.SQLException;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Arrays;
 import javax.swing.JOptionPane;
 
@@ -82,6 +83,11 @@ public class Login extends javax.swing.JFrame {
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(88, 200, 197));
+        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel2MouseClicked(evt);
+            }
+        });
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel4.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 48)); // NOI18N
@@ -202,10 +208,24 @@ public class Login extends javax.swing.JFrame {
 
     }
     
+    public String uid;
+    public String role;
+    public String name;
+    
     private void btn_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_loginActionPerformed
         
         User u  = new User((String) cmbUserID.getSelectedItem(),String.valueOf(txt_pass.getPassword()));
-        u.userlogin();
+        Query_Login ql = new Query_Login();
+        ql.getUserInfo(cmbUserID.getSelectedItem().toString());
+        uid = ql.getUserID();
+        role = ql.getRole();
+        name = ql.getName();
+        if(u.userlogin() == true){
+            Home log = new Home();
+            log.setUserInfo(uid,name,role);
+            log.setVisible(true);
+        }
+        
     }//GEN-LAST:event_btn_loginActionPerformed
 
     private void btn_closeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_closeActionPerformed
@@ -239,6 +259,10 @@ public class Login extends javax.swing.JFrame {
         int y = evt.getYOnScreen();
         this.setLocation(x-xx, y-yy);
     }//GEN-LAST:event_jPanel3MouseDragged
+
+    private void jPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseClicked
+        
+    }//GEN-LAST:event_jPanel2MouseClicked
 
     
     /**

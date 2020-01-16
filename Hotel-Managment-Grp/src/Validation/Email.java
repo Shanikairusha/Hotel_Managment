@@ -13,17 +13,19 @@ import javax.swing.JOptionPane;
  *
  * @author SHA
  */
-public class roomId {
+public class Email {
     
-    public static Boolean validateRm(String RoomId){
-        
-        Pattern pattID = Pattern.compile("([R][M][-][0-9]{3})");
-        Matcher matchID = pattID.matcher(RoomId);
+    
+    public static Boolean validate(String ID)
+    {
+        Pattern pattID = Pattern.compile("^[\\\\w-_\\\\.+]*[\\\\w-_\\\\.]\\\\@([\\\\w]+\\\\.)+[\\\\w]+[\\\\w]$");
+        Matcher matchID = pattID.matcher(ID);
         if(!(matchID.matches()))
         {
             JOptionPane.showMessageDialog(null, "Entered ID number is not valid please enter valid number");
         }
        
         return matchID.matches();
+        
     }
 }

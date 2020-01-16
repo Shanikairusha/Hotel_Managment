@@ -1,7 +1,12 @@
 package Person;
 
+import Database.DBConnManager;
 import Database.Query_Person;
 import Interface.Login;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.Vector;
 import javax.swing.JOptionPane;
 
 public class Person implements Person_imp{
@@ -64,17 +69,27 @@ public class Person implements Person_imp{
     public String getEmail() {
         return Email;
     }
-
-     @Override
-    public String setPDetails() {
+    private DBConnManager dbConnManager = null; 
+    
+    
+    @Override
+    public void setPDetails() {
         //JOptionPane.showMessageDialog(null,this.IdNo);
         Query_Person q = new Query_Person();
-        return q.SetPerson(getIdNo(), getName(), getAddress(), getPhnNm(), getEmail());
+        q.SetPerson(getIdNo(), getName(), getAddress(), getPhnNm(), getEmail());
+    }
+    
+    public void UpdatePDetails() {
+        //JOptionPane.showMessageDialog(null,this.IdNo);
+        Query_Person q = new Query_Person();
+        q.UpdatePerson(getIdNo(), getName(), getAddress(), getPhnNm(), getEmail());
+    }
+    
+    public void DeletePDetails() {
+        //JOptionPane.showMessageDialog(null,this.IdNo);
+        Query_Person q = new Query_Person();
+        q.DeletePerson(getIdNo());
     }
 
-    @Override
-    public void getDetails() {
-       System.exit(0);  //To change body of generated methods, choose Tools | Templates.
-    }
     
 }
