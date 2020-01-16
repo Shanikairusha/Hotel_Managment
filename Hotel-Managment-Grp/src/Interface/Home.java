@@ -6,10 +6,14 @@
 package Interface;
 
 import Control.Home_Receipt_Control;
+import Controllers.DeleteData;
+import Controllers.RetriveCustomerData;
+import Controllers.RetriveTable;
 import Database.Query_Person;
 import Encryption.Enc_Dec;
 import FILE.write_read;
 import ManagerEditables.SQLQryM;
+import Model.Table;
 
 import Person.Person;
 import Person.User;
@@ -55,8 +59,23 @@ public class Home extends javax.swing.JFrame {
         txt_euserId.setText("USER-"+qp.getAutoGenUserId());
    
         loadTable();
+   
+    }
+    
+    public void RetriveTable(){
         
-        
+          ArrayList<Table> newarray = new ArrayList<>();
+            
+            DefaultTableModel inter_table = (DefaultTableModel) jTable1.getModel();
+            
+            RetriveTable retable = new RetriveTable();
+           newarray = retable.ResTableIns();
+           
+          inter_table.setRowCount(0);
+           
+           for(int i =0; i<newarray.size();i++){
+               inter_table.addRow(new Object[] {newarray.get(i).getResId(),newarray.get(i).getCustomerId(),newarray.get(i).getDate(),newarray.get(i).getCheck_in(),newarray.get(i).getCheck_out(),newarray.get(i).getUserId(),newarray.get(i).getAdult(),newarray.get(i).getChildren()});
+           }
     }
     
     public void setUserInfo( String UserId, String username, String role){
@@ -132,7 +151,6 @@ public class Home extends javax.swing.JFrame {
         btnRefresh = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
-        pnlbooking = new javax.swing.JPanel();
         pnlresturent = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
@@ -233,6 +251,12 @@ public class Home extends javax.swing.JFrame {
         btn_Refresh = new javax.swing.JButton();
         btn_Clear = new javax.swing.JButton();
         jLabel31 = new javax.swing.JLabel();
+        pnlbooking = new javax.swing.JPanel();
+        jButton11 = new javax.swing.JButton();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jLabel5 = new javax.swing.JLabel();
+        jButton12 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addComponentListener(new java.awt.event.ComponentAdapter() {
@@ -676,17 +700,6 @@ public class Home extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(143, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout pnlbookingLayout = new javax.swing.GroupLayout(pnlbooking);
-        pnlbooking.setLayout(pnlbookingLayout);
-        pnlbookingLayout.setHorizontalGroup(
-            pnlbookingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1189, Short.MAX_VALUE)
-        );
-        pnlbookingLayout.setVerticalGroup(
-            pnlbookingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 621, Short.MAX_VALUE)
         );
 
         pnlresturent.setBackground(new java.awt.Color(0, 102, 102));
@@ -1503,24 +1516,89 @@ public class Home extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jButton11.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton11.setText("Add");
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Resarvation ID", "Customer ID", "Date", "Check-In", "Check-Out", "User-ID", "Adults", "Children"
+            }
+        ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
+        jScrollPane9.setViewportView(jTable1);
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel5.setText("Room Reservation");
+
+        jButton12.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton12.setText("Delete");
+        jButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton12ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlbookingLayout = new javax.swing.GroupLayout(pnlbooking);
+        pnlbooking.setLayout(pnlbookingLayout);
+        pnlbookingLayout.setHorizontalGroup(
+            pnlbookingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlbookingLayout.createSequentialGroup()
+                .addGroup(pnlbookingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlbookingLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane9))
+                    .addGroup(pnlbookingLayout.createSequentialGroup()
+                        .addGap(496, 496, 496)
+                        .addComponent(jLabel5)
+                        .addGap(109, 109, 109)
+                        .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton12)
+                        .addGap(0, 210, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        pnlbookingLayout.setVerticalGroup(
+            pnlbookingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlbookingLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(pnlbookingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlbookingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton11)
+                        .addComponent(jButton12)))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(371, 371, 371))
+        );
+
         jLayeredPane1.setLayer(pnlhome, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(pnlmanager, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(pnlbooking, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(pnlresturent, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(pnlsetting, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(pnlRoomType, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(pnlemployee, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(pnlbooking, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
         jLayeredPane1Layout.setHorizontalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
-            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                    .addGap(0, 0, 0)
-                    .addComponent(pnlbooking, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGap(0, 0, 0)))
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jLayeredPane1Layout.createSequentialGroup()
                     .addGap(0, 0, 0)
@@ -1550,15 +1628,15 @@ public class Home extends javax.swing.JFrame {
                     .addGap(12, 12, 12)
                     .addComponent(pnlemployee, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGap(13, 13, 13)))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addGap(12, 12, 12)
+                    .addComponent(pnlbooking, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGap(12, 12, 12)))
         );
         jLayeredPane1Layout.setVerticalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 717, Short.MAX_VALUE)
-            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                    .addGap(0, 0, 0)
-                    .addComponent(pnlbooking, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGap(0, 0, 0)))
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jLayeredPane1Layout.createSequentialGroup()
                     .addGap(0, 0, 0)
@@ -1588,6 +1666,11 @@ public class Home extends javax.swing.JFrame {
                     .addGap(56, 56, 56)
                     .addComponent(pnlemployee, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGap(56, 56, 56)))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addGap(52, 52, 52)
+                    .addComponent(pnlbooking, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGap(53, 53, 53)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -1651,6 +1734,8 @@ public class Home extends javax.swing.JFrame {
         pnlRoomType.setVisible(false);
         pnlmanager.setVisible(false);
         pnlemployee.setVisible(false);
+        
+         RetriveTable();
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void jLabel3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MousePressed
@@ -2426,6 +2511,46 @@ public class Home extends javax.swing.JFrame {
     private void btn_ClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ClearActionPerformed
         txtClear();
     }//GEN-LAST:event_btn_ClearActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+
+        String user_id = lbl_userid.getText();
+        addreservation adres = new addreservation();
+        adres.setuserid(user_id); //pass username to addreservation class
+
+        adres.setVisible(true);
+    }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+        //System.out.println(jTable1.getSelectedRow());  jTable1.getSelectedRow();
+        DeleteData dd = new DeleteData();
+        RetriveCustomerData getid = new RetriveCustomerData();
+        try{
+            int row = jTable1.getSelectedRow();
+            String  customID = (jTable1.getModel().getValueAt(row, 1).toString());
+            System.out.println(customID);
+            String NIC= getid.re(customID);
+            System.out.println(NIC);
+            boolean result =  dd.delete(NIC);
+
+            if(result == true){
+                JOptionPane.showMessageDialog(null, "Delete Successfull");
+            }else{
+                JOptionPane.showMessageDialog(null, "Delete Failed");
+            }
+
+            //dd.delete(table_click);
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+        RetriveTable();
+        //
+
+    }//GEN-LAST:event_jButton12ActionPerformed
 //////////////////////////////////////////////////////////////////////////////////////////
     /**
      * @param args the command line arguments
@@ -2493,6 +2618,8 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JPanel homebtn;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton11;
+    private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -2540,6 +2667,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel46;
     private javax.swing.JLabel jLabel48;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -2553,11 +2681,13 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator11;
     private javax.swing.JSeparator jSeparator12;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JTable jTable1;
     private javax.swing.JLabel jlblRate;
     private javax.swing.JLabel lblCheckIn;
     private javax.swing.JLabel lblCheckOut;

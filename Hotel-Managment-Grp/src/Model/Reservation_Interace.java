@@ -6,17 +6,31 @@
 package Model;
 
 import Controllers.Addreservationtodb;
+import Database.DBConnManager;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Darkness
  */
 public class Reservation_Interace {
-   private String u_id, reserve_type;
+   private String u_id, reserve_type,customer_id;
    private String g_name,g_address,g_nic,booked_date,g_email;
    private int g_mobileNum ;
    private String r_id, check_in,check_out,r_roomtype,reserve_date;
    private int r_adults,r_children,r_numofroom,r_numofpeople,r_numoftable;
+
+    public String getCustomer_id() {
+        return customer_id;
+    }
+
+    public void setCustomer_id(String customer_id) {
+        this.customer_id = customer_id;
+    }
 
     public String getU_id() {
         return u_id;
@@ -164,31 +178,66 @@ public class Reservation_Interace {
 
     public boolean addtodb(Reservation_Interace x){
         Addreservationtodb add = new Addreservationtodb();
+      // System.out.println(getG_nic()+"middle class");
        
         boolean y = add.add(x);
         
         return y;
     }
-    
-    public void print(){
-        System.out.println(getG_name());
-        System.out.println(getBooked_date());
-        System.out.println(getG_address());
-        System.out.println(getG_email());
-        System.out.println(getG_mobileNum());
-        System.out.println(getG_nic());
-        
-      /*  System.out.println(getCheck_in());
-        System.out.println(getCheck_out());
-        System.out.println(getR_adults());
-        System.out.println(getR_children());
-        System.out.println(getR_roomtype());
-        System.out.println(getR_numofroom());
-        */
-      /*  System.out.println(getReserve_date());
-        System.out.println(getR_numofpeople());
-        System.out.println(getR_numoftable());
-        */
+     public void ID()
+    {
+      DBConnManager dbConnManager = null; 
+        dbConnManager = new DBConnManager();  
+        Connection dbConn = null;
+        dbConn = dbConnManager.connect();
+      try{
+          ResultSet rest = null;
+          Statement stm = dbConn.createStatement();
+            try{
+                rest= stm.executeQuery("select MAX(SUBSTRING_INDEX(ResID,'-',-1)) AS ExtractString FROM reservation");      
+            }
+            catch(SQLException ex){
+                JOptionPane.showMessageDialog( null, ex.getMessage() );
+            }
+     
+            int x=0;
+            while (rest.next())
+                {
+                x= rest.getInt(1);
+                }
+            setR_id((++x)+"");
+            //txt_euserid.setText();
+     
+      }
+       catch(SQLException exx){
+           JOptionPane.showMessageDialog( null, exx.getMessage() );
+       }
+      
     }
-    
-}
+     public void CustomerID()    {
+      DBConnManager dbConnManager = null; 
+        dbConnManager = new DBConnManager();  
+        Connection dbConn = null;
+        dbConn = dbConnManager.connect();
+      try{
+          ResultSet rest = null;
+          Statement stm = dbConn.createStatement();
+            try{
+                rest= stm.executeQuery("select MAX(SUBSTRING_INDEX(CustomerID,'-',-1)) AS ExtractString FROM customer");      
+            }
+            catch(SQLException ex){
+                JOptionPane.showMessageDialog( null, ex.getMessage() );
+            }
+     
+            int x=0;
+            while (rest.next())
+                {
+                x= rest.getInt(1);
+                }
+            setCustomer_id((++x)+"");           
+      }
+       catch(SQLException exx){
+           JOptionPane.showMessageDialog( null, exx.getMessage() );
+       }
+    }
+   }

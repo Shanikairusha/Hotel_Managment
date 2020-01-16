@@ -211,7 +211,7 @@ public class Login extends javax.swing.JFrame {
     public String uid;
     public String role;
     public String name;
-    
+    public static Home log = new Home();
     private void btn_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_loginActionPerformed
         
         User u  = new User((String) cmbUserID.getSelectedItem(),String.valueOf(txt_pass.getPassword()));
@@ -221,7 +221,7 @@ public class Login extends javax.swing.JFrame {
         role = ql.getRole();
         name = ql.getName();
         if(u.userlogin() == true){
-            Home log = new Home();
+           // Home log = new Home();
             log.setUserInfo(uid,name,role);
             log.setVisible(true);
         }
